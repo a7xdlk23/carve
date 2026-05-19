@@ -170,6 +170,9 @@ considered **!!EXPERIMENTAL!!**
 
 ## Compiling
 
+On Linux, building requires the `libxml2-devel` and `qt6-qtbase-devel` packages
+(note that package names vary by distro).
+
 ```bash
 cmake -Bbuild -S.
 cmake --build build
