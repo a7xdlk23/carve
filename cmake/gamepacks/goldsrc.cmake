@@ -9,6 +9,5 @@ radiant_add_gamepack(hl
 	EXECUTABLE_WIN32 "hl.exe"
 	EXECUTABLE_LINUX "hl.sh"
 	EXECUTABLE_MACOS "hl.sh"
-	PREFIX ".hl"
 	ENTITIES "halflife.fgd"
 )

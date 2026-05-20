@@ -15,7 +15,6 @@ radiant_add_gamepack(cstrike
 	EXECUTABLE_WIN32 "cstrike.exe"
 	EXECUTABLE_LINUX "cstrike.sh"
 	EXECUTABLE_MACOS "cstrike.sh"
-	PREFIX ".cstrike"
 	ENTITIES "cstrike.fgd"
 )
 
@@ -32,7 +31,6 @@ radiant_add_gamepack(diprip
 	EXECUTABLE_WIN32 "hl2.exe"
 	EXECUTABLE_LINUX "hl2.sh"
 	EXECUTABLE_MACOS "hl2.sh"
-	PREFIX ".diprip"
 	ENTITIES "diprip.fgd"
 )
 
@@ -49,7 +47,6 @@ radiant_add_gamepack(dod
 	EXECUTABLE_WIN32 "dod.exe"
 	EXECUTABLE_LINUX "dod.sh"
 	EXECUTABLE_MACOS "dod.sh"
-	PREFIX ".dod"
 	ENTITIES "dod.fgd"
 )
 
@@ -66,7 +63,6 @@ radiant_add_gamepack(garrysmod
 	EXECUTABLE_WIN32 "hl2.exe"
 	EXECUTABLE_LINUX "hl2.sh"
 	EXECUTABLE_MACOS "hl2.sh"
-	PREFIX ".garrysmod"
 	ENTITIES "garrysmod.fgd"
 )
 
@@ -79,7 +75,6 @@ radiant_add_gamepack(hl2
 	EXECUTABLE_WIN32 "hl2.exe"
 	EXECUTABLE_LINUX "hl2.sh"
 	EXECUTABLE_MACOS "hl2.sh"
-	PREFIX ".hl2"
 	ENTITIES "halflife2.fgd"
 )
 
@@ -96,7 +91,6 @@ radiant_add_gamepack(episodic
 	EXECUTABLE_WIN32 "hl2.exe"
 	EXECUTABLE_LINUX "hl2.sh"
 	EXECUTABLE_MACOS "hl2.sh"
-	PREFIX ".episodic"
 	ENTITIES "halflife2.fgd"
 )
 
@@ -113,7 +107,6 @@ radiant_add_gamepack(ep2
 	EXECUTABLE_WIN32 "hl2.exe"
 	EXECUTABLE_LINUX "hl2.sh"
 	EXECUTABLE_MACOS "hl2.sh"
-	PREFIX ".ep2"
 	ENTITIES "halflife2.fgd"
 )
 
@@ -130,7 +123,6 @@ radiant_add_gamepack(lostcoast
 	EXECUTABLE_WIN32 "hl2.exe"
 	EXECUTABLE_LINUX "hl2.sh"
 	EXECUTABLE_MACOS "hl2.sh"
-	PREFIX ".lostcoast"
 	ENTITIES "halflife2.fgd"
 )
 
@@ -147,7 +139,6 @@ radiant_add_gamepack(hl2mp
 	EXECUTABLE_WIN32 "hl2mp.exe"
 	EXECUTABLE_LINUX "hl2mp.sh"
 	EXECUTABLE_MACOS "hl2mp.sh"
-	PREFIX ".hl2mp"
 	ENTITIES "hl2mp.fgd"
 )
 
@@ -164,7 +155,6 @@ radiant_add_gamepack(portal
 	EXECUTABLE_WIN32 "hl2.exe"
 	EXECUTABLE_LINUX "hl2.sh"
 	EXECUTABLE_MACOS "hl2.sh"
-	PREFIX ".portal"
 	ENTITIES "portal.fgd"
 )
 
@@ -178,7 +168,6 @@ radiant_add_gamepack(portal2
 	EXECUTABLE_WIN32 "portal2.exe"
 	EXECUTABLE_LINUX "portal2.sh"
 	EXECUTABLE_MACOS "portal2.sh"
-	PREFIX ".portal2"
 	ENTITIES "portal2.fgd"
 )
 
@@ -195,7 +184,6 @@ radiant_add_gamepack(sinepisodes
 	EXECUTABLE_WIN32 "SinEpisodes.exe"
 	EXECUTABLE_LINUX "SinEpisodes.sh"
 	EXECUTABLE_MACOS "SinEpisodes.sh"
-	PREFIX ".sinepisodes"
 	ENTITIES "SinEpisodes.fgd"
 )
 
@@ -212,7 +200,6 @@ radiant_add_gamepack(tf2
 	EXECUTABLE_WIN32 "tf.exe"
 	EXECUTABLE_LINUX "tf.sh"
 	EXECUTABLE_MACOS "tf.sh"
-	PREFIX ".tf"
 	ENTITIES "tf.fgd"
 )
 
@@ -229,6 +216,5 @@ radiant_add_gamepack(vampire
 	EXECUTABLE_WIN32 "Vampire.exe"
 	EXECUTABLE_LINUX "Vampire.sh"
 	EXECUTABLE_MACOS "Vampire.sh"
-	PREFIX ".vampire"
 	ENTITIES "vampire.fgd"
 )
