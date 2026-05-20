@@ -3,7 +3,7 @@ if(NOT RADIANT_SUPPORT_SOURCE)
 endif()
 
 # Counter-Strike: Source
-radiant_add_gamepack(cstrike
+radiant_add_gamepack(css
 	HAS_BASEGAME
 	BASE_TITLE "Half-Life 2"
 	BASE_GAMEDIR "hl2"
@@ -35,7 +35,7 @@ radiant_add_gamepack(diprip
 )
 
 # Day of Defeat: Source
-radiant_add_gamepack(dod
+radiant_add_gamepack(dods
 	HAS_BASEGAME
 	BASE_TITLE "Half-Life 2"
 	BASE_GAMEDIR "hl2"
