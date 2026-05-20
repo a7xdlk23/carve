@@ -58,6 +58,7 @@ function(radiant_add_gamepack name)
   basegamename="$<IF:$<TARGET_PROPERTY:HAS_BASEGAME>,$<TARGET_PROPERTY:BASE_TITLE>,$<TARGET_PROPERTY:TITLE>>"
   knowngames="$<LIST:JOIN,$<TARGET_PROPERTY:KNOWN_GAMEDIRS>, >"
   knowngamenames="$<LIST:JOIN,$<TARGET_PROPERTY:KNOWN_TITLES>,$<SEMICOLON>>"
+  defaultgame="$<IF:$<TARGET_PROPERTY:HAS_BASEGAME>,$<LIST:GET,$<TARGET_PROPERTY:KNOWN_GAMEDIRS>,-1>,$<TARGET_PROPERTY:GAMEDIR>>"
   shaderpath="$<IF:$<TARGET_PROPERTY:GOLDSRC>,textures,materials>"
   archivetypes="$<IF:$<TARGET_PROPERTY:GOLDSRC>,pak wad,vpk gma gcf>"
   texturetypes="$<IF:$<TARGET_PROPERTY:GOLDSRC>,hlw spr mdl,vtf tth>"
