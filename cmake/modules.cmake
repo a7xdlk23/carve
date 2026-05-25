@@ -54,7 +54,6 @@ if(RADIANT_SUPPORT_SOURCE)
 			${PROJECT_SOURCE_DIR}/modules/archivevpk/plugin.cpp
 	)
 	target_link_libraries(archivevpk PRIVATE sourcepp::vpkpp)
-	set_target_properties(sourcepp_vpkpp miniz minizip-ng zlib-ng bzip2 liblzma sourcepp_crypto sourcepp_parser sourcepp PROPERTIES POSITION_INDEPENDENT_CODE ON)
 endif()
 
 add_module(archivezip
@@ -119,7 +118,6 @@ if(RADIANT_SUPPORT_SOURCE)
 			${PROJECT_SOURCE_DIR}/modules/imagevtf/vtf.cpp
 	)
 	target_link_libraries(imagevtf PRIVATE sourcepp::vtfpp)
-	set_target_properties(sourcepp_vtfpp sourcepp_compression PROPERTIES POSITION_INDEPENDENT_CODE ON)
 endif()
 
 add_module(imagepvr
@@ -172,7 +170,6 @@ add_module(model
 target_link_libraries(model PRIVATE Qt6::Core Qt6::Gui Qt6::Widgets Qt6::Svg Qt6::OpenGL Qt6::OpenGLWidgets)
 if(RADIANT_SUPPORT_SOURCE)
 	target_link_libraries(model PRIVATE sourcepp::mdlpp)
-	set_target_properties(sourcepp_mdlpp PROPERTIES POSITION_INDEPENDENT_CODE ON)
 else()
 	target_compile_definitions(model PRIVATE NO_SOURCEMDL=1)
 endif()
@@ -209,7 +206,6 @@ target_link_libraries(shaders PRIVATE commandlib)
 target_link_libraries(shaders PRIVATE LibXml2::LibXml2)
 if(RADIANT_SUPPORT_SOURCE)
 	target_link_libraries(shaders PRIVATE sourcepp::kvpp)
-	set_target_properties(sourcepp_kvpp PROPERTIES POSITION_INDEPENDENT_CODE ON)
 else()
 	target_compile_definitions(shaders PRIVATE NO_SOURCEVMT=1)
 endif()

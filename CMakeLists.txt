@@ -2,6 +2,16 @@ cmake_minimum_required(VERSION 3.21)
 project(radiant LANGUAGES C CXX VERSION 1.6.0)
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
+# global
+
+set(CMAKE_C_STANDARD 17)
+set(CMAKE_C_STANDARD_REQUIRED ON)
+
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 # options
 
 include(CMakeDependentOption)
@@ -46,11 +56,6 @@ if(RADIANT_SUPPORT_SOURCE)
 	set(SOURCEPP_VTFPP_SUPPORT_WEBP OFF CACHE BOOL "" FORCE)
 
 	FetchContent_MakeAvailable(sourcepp)
-
-	# FIXME: why was this needed on Fedora but not Arch?
-	if(TARGET ppmd)
-		set_property(TARGET ppmd PROPERTY POSITION_INDEPENDENT_CODE ON)
-	endif()
 endif()
 
 find_package(ZLIB REQUIRED)
@@ -105,8 +110,6 @@ target_include_directories(commandlib PRIVATE
 	${PROJECT_SOURCE_DIR}/include
 	${PROJECT_SOURCE_DIR}/libs
 )
-
-set_property(TARGET commandlib PROPERTY POSITION_INDEPENDENT_CODE ON)
 
 # gtkutil
 
@@ -172,33 +175,28 @@ add_library(quickhull STATIC ${PROJECT_SOURCE_DIR}/libs/quickhull/QuickHull.cpp)
 
 add_library(filematch STATIC ${PROJECT_SOURCE_DIR}/libs/filematch/filematch.c)
 target_include_directories(filematch PUBLIC ${PROJECT_SOURCE_DIR}/libs/filematch)
-set_property(TARGET filematch PROPERTY POSITION_INDEPENDENT_CODE ON)
 
 # ddslib
 
 add_library(ddslib STATIC ${PROJECT_SOURCE_DIR}/libs/ddslib/ddslib.c)
 target_include_directories(ddslib PUBLIC ${PROJECT_SOURCE_DIR}/libs/ddslib)
-set_property(TARGET ddslib PROPERTY POSITION_INDEPENDENT_CODE ON)
 
 # etclib
 
 add_library(etclib STATIC ${PROJECT_SOURCE_DIR}/libs/etclib/etclib.c)
 target_include_directories(etclib PRIVATE ${PROJECT_SOURCE_DIR}/libs)
 target_include_directories(etclib PUBLIC ${PROJECT_SOURCE_DIR}/libs/etclib)
-set_property(TARGET etclib PROPERTY POSITION_INDEPENDENT_CODE ON)
 
 # crnlib
 
 add_library(crnlib STATIC ${PROJECT_SOURCE_DIR}/libs/crnlib/crnlib.cpp)
 target_include_directories(crnlib PUBLIC ${PROJECT_SOURCE_DIR}/libs/crnlib)
 target_link_libraries(crnlib PRIVATE ddslib)
-set_property(TARGET crnlib PROPERTY POSITION_INDEPENDENT_CODE ON)
 
 # webplib
 
 add_library(webplib STATIC ${PROJECT_SOURCE_DIR}/libs/webplib/webplib.cpp)
 target_include_directories(webplib PUBLIC ${PROJECT_SOURCE_DIR}/libs/webplib)
-set_property(TARGET webplib PROPERTY POSITION_INDEPENDENT_CODE ON)
 
 # radiant
 
@@ -330,19 +328,23 @@ target_link_libraries(radiant PRIVATE Qt6::Core Qt6::Gui Qt6::Widgets Qt6::Svg Q
 target_link_libraries(radiant PRIVATE LibXml2::LibXml2)
 target_link_libraries(radiant PRIVATE commandlib gtkutil l_net xmllib quickhull)
 target_link_libraries(radiant PRIVATE $<$<BOOL:${RADIANT_SUPPORT_SOURCE}>:sourcepp::toolpp>)
-if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
-	target_link_libraries(radiant PRIVATE ws2_32 dbghelp)
-endif()
-if(CMAKE_SYSTEM_NAME STREQUAL "Haiku")
-	target_link_libraries(radiant PRIVATE network)
-endif()
-
-set_target_properties(radiant commandlib gtkutil xmllib PROPERTIES CXX_STANDARD_REQUIRED ON CXX_STANDARD 20)
-
-if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-	target_compile_options(radiant PRIVATE -MMD -W -Wall -Wcast-align -Wcast-qual -Wno-unused-parameter -Wno-unused-function -fno-strict-aliasing)
-	target_compile_options(radiant PRIVATE -Wreorder -fno-rtti -fpermissive)
-endif()
+target_link_libraries(radiant PRIVATE $<$<BOOL:${WIN32}>:ws2_32> $<$<BOOL:${WIN32}>:dbghelp>)
+target_link_libraries(radiant PRIVATE $<$<PLATFORM_ID:Haiku>:network>)
+target_compile_options(radiant PRIVATE
+	$<$<BOOL:${MINGW}>:-static-libgcc>
+	$<$<BOOL:${MINGW}>:-static-libstdc++>
+	$<$<BOOL:${MINGW}>:-static>
+	$<$<AND:$<COMPILE_LANGUAGE:CXX>,$<CXX_COMPILER_ID:GNU,Clang>>:-Wreorder>
+	$<$<AND:$<COMPILE_LANGUAGE:CXX>,$<CXX_COMPILER_ID:GNU,Clang>>:-fno-rtti>
+	$<$<AND:$<COMPILE_LANGUAGE:CXX>,$<CXX_COMPILER_ID:GNU,Clang>>:-fpermissive>
+	$<$<AND:$<COMPILE_LANGUAGE:C,CXX>,$<C_COMPILER_ID:GNU,Clang>>:-W>
+	$<$<AND:$<COMPILE_LANGUAGE:C,CXX>,$<C_COMPILER_ID:GNU,Clang>>:-Wall>
+	$<$<AND:$<COMPILE_LANGUAGE:C,CXX>,$<C_COMPILER_ID:GNU,Clang>>:-Wcast-align>
+	$<$<AND:$<COMPILE_LANGUAGE:C,CXX>,$<C_COMPILER_ID:GNU,Clang>>:-Wcast-qual>
+	$<$<AND:$<COMPILE_LANGUAGE:C,CXX>,$<C_COMPILER_ID:GNU,Clang>>:-Wno-unused-parameter>
+	$<$<AND:$<COMPILE_LANGUAGE:C,CXX>,$<C_COMPILER_ID:GNU,Clang>>:-Wno-unused-function>
+	$<$<AND:$<COMPILE_LANGUAGE:CXX>,$<CXX_COMPILER_ID:GNU,Clang>>:-fno-strict-aliasing>
+)
 
 set_target_properties(radiant
 	PROPERTIES
@@ -357,10 +359,6 @@ file(WRITE ${PROJECT_SOURCE_DIR}/install/RADIANT_PATCH ${RADIANT_PATCH_VERSION})
 file(GLOB RADIANT_DATA_FILES "${PROJECT_SOURCE_DIR}/resources/*")
 file(COPY ${RADIANT_DATA_FILES} DESTINATION ${PROJECT_SOURCE_DIR}/install/)
 file(COPY "${PROJECT_SOURCE_DIR}/docs/mouse shortcuts.txt" DESTINATION ${PROJECT_SOURCE_DIR}/install/docs/)
-
-if(MINGW)
-	target_compile_options(radiant PRIVATE -static-libgcc -static-libstdc++ -static)
-endif()
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
 	target_compile_definitions(radiant PRIVATE WIN32)
