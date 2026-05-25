@@ -267,7 +267,7 @@ typedef std::list<PicoModelModule> PicoModelModules;
 PicoModelModules g_PicoModelModules;
 
 
-
+#if 0
 class ImageMDLAPI
 {
 	_QERPlugImageTable m_imagemdl;
@@ -289,7 +289,7 @@ public:
 typedef SingletonModule<ImageMDLAPI, GlobalFileSystemModuleRef> ImageMDLModule;
 
 ImageMDLModule g_ImageMDLModule;
-
+#endif
 
 
 extern "C" void RADIANT_DLLEXPORT Radiant_RegisterModules( ModuleServer& server ){
@@ -318,7 +318,7 @@ extern "C" void RADIANT_DLLEXPORT Radiant_RegisterModules( ModuleServer& server 
 		}
 	}
 
-	g_ImageMDLModule.selfRegister();
+	// g_ImageMDLModule.selfRegister();
 }
 
 /* TODO
