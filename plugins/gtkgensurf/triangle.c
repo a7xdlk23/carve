@@ -306,6 +306,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
+#include <string.h>
+#include <stdlib.h>
 #ifndef NO_TIMER
 #include <sys/time.h>
 #endif /* NO_TIMER */
@@ -313,26 +315,11 @@
 #include "triangle.h"
 #endif /* TRILIBRARY */
 
-/* The following obscenity seems to be necessary to ensure that this program */
-/* will port to Dec Alphas running OSF/1, because their stdio.h file commits */
-/* the unpardonable sin of including stdlib.h.  Hence, malloc(), free(), and */
-/* exit() may or may not already be defined at this point.  I declare these  */
-/* functions explicitly because some non-ANSI C compilers lack stdlib.h.     */
-
-#ifndef _STDLIB_H_
-extern void *malloc();
-extern void free();
-extern void exit();
-extern double strtod();
-extern long strtol();
-#endif /* _STDLIB_H_ */
-
 /* A few forward declarations.                                               */
 
-void poolrestart();
 #ifndef TRILIBRARY
-char *readline();
-char *findfield();
+char *readline(char *string, FILE *infile, char *infilename);
+char *findfield(char *string);
 #endif /* not TRILIBRARY */
 
 /* Labels that signify whether a record consists primarily of pointers or of */
@@ -607,6 +594,8 @@ struct memorypool {
 	int pathitemsleft;
 };
 
+void poolrestart(struct memorypool *pool);
+
 /* Variables used to allocate memory for triangles, shell edges, points,     */
 /*   viri (triangles being eaten), bad (encroached) segments, bad (skinny    */
 /*   or too large) triangles, and splay tree nodes.                          */
@@ -622,8 +611,8 @@ static struct memorypool splaynodes;
 /* Variables that maintain the bad triangle queues.  The tails are pointers  */
 /*   to the pointers that have to be filled in to enqueue an item.           */
 
-static struct badface *queuefront[64];
-static struct badface **queuetail[64];
+//static struct badface *queuefront[64];
+//static struct badface **queuetail[64];
 
 static REAL xmin, xmax, ymin, ymax;                              /* x and y bounds. */
 static REAL xminextreme;        /* Nonexistent x value used as a flag in sweepline. */
@@ -3194,12 +3183,13 @@ struct edge *s;
 /*                                                                           */
 /*****************************************************************************/
 
-void poolinit( pool, bytecount, itemcount, wtype, alignment )
-struct memorypool *pool;
-int bytecount;
-int itemcount;
-enum wordtype wtype;
-int alignment;
+void poolinit(
+struct memorypool *pool,
+int bytecount,
+int itemcount,
+enum wordtype wtype,
+int alignment
+)
 {
 	int wordsize;
 
@@ -3249,8 +3239,7 @@ int alignment;
 /*                                                                           */
 /*****************************************************************************/
 
-void poolrestart( pool )
-struct memorypool *pool;
+void poolrestart( struct memorypool *pool )
 {
 	unsigned long alignptr;
 
@@ -10966,14 +10955,13 @@ void tallyfaces(){
 /*                                                                           */
 /*****************************************************************************/
 
-enum circumcenterresult findcircumcenter( torg, tdest, tapex, circumcenter,
-										  xi, eta )
-point torg;
-point tdest;
-point tapex;
-point circumcenter;
-REAL *xi;
-REAL *eta;
+enum circumcenterresult findcircumcenter(
+point torg,
+point tdest,
+point tapex,
+point circumcenter,
+REAL *xi,
+REAL *eta)
 {
 	REAL xdo, ydo, xao, yao, xad, yad;
 	REAL dodist, aodist, addist;
@@ -11591,13 +11579,12 @@ FILE **polyfile;
 
 #ifdef TRILIBRARY
 
-void transfernodes( pointlist, pointattriblist, pointmarkerlist, numberofpoints,
-					numberofpointattribs )
-REAL * pointlist;
-REAL *pointattriblist;
-int *pointmarkerlist;
-int numberofpoints;
-int numberofpointattribs;
+void transfernodes(
+REAL * pointlist,
+REAL *pointattriblist,
+int *pointmarkerlist,
+int numberofpoints,
+int numberofpointattribs)
 {
 	point pointloop;
 	REAL x, y;
@@ -11822,17 +11809,17 @@ char **argv;
 
 #ifdef TRILIBRARY
 
-void writenodes( pointlist, pointattriblist, pointmarkerlist )
-REAL * *pointlist;
-REAL **pointattriblist;
-int **pointmarkerlist;
+void writenodes(
+REAL * *pointlist,
+REAL **pointattriblist,
+int **pointmarkerlist)
 
 #else /* not TRILIBRARY */
 
-void writenodes( nodefilename, argc, argv )
-char *nodefilename;
-int argc;
-char **argv;
+void writenodes(
+char *nodefilename,
+int argc,
+char **argv)
 
 #endif /* not TRILIBRARY */
 
@@ -11973,16 +11960,16 @@ void numbernodes(){
 
 #ifdef TRILIBRARY
 
-void writeelements( trianglelist, triangleattriblist )
-int **trianglelist;
-REAL **triangleattriblist;
+void writeelements(
+int **trianglelist,
+REAL **triangleattriblist)
 
 #else /* not TRILIBRARY */
 
-void writeelements( elefilename, argc, argv )
-char *elefilename;
-int argc;
-char **argv;
+void writeelements(
+char *elefilename,
+int argc,
+char **argv)
 
 #endif /* not TRILIBRARY */
 
@@ -12107,20 +12094,20 @@ char **argv;
 
 #ifdef TRILIBRARY
 
-void writepoly( segmentlist, segmentmarkerlist )
-int **segmentlist;
-int **segmentmarkerlist;
+void writepoly(
+int **segmentlist,
+int **segmentmarkerlist)
 
 #else /* not TRILIBRARY */
 
-void writepoly( polyfilename, holelist, holes, regionlist, regions, argc, argv )
-char *polyfilename;
-REAL *holelist;
-int holes;
-REAL *regionlist;
-int regions;
-int argc;
-char **argv;
+void writepoly(
+char *polyfilename,
+REAL *holelist,
+int holes,
+REAL *regionlist,
+int regions,
+int argc,
+char **argv)
 
 #endif /* not TRILIBRARY */
 
@@ -12241,16 +12228,16 @@ char **argv;
 
 #ifdef TRILIBRARY
 
-void writeedges( edgelist, edgemarkerlist )
-int **edgelist;
-int **edgemarkerlist;
+void writeedges(
+int **edgelist,
+int **edgemarkerlist)
 
 #else /* not TRILIBRARY */
 
-void writeedges( edgefilename, argc, argv )
-char *edgefilename;
-int argc;
-char **argv;
+void writeedges(
+char *edgefilename,
+int argc,
+char **argv)
 
 #endif /* not TRILIBRARY */
 
@@ -12392,22 +12379,21 @@ char **argv;
 
 #ifdef TRILIBRARY
 
-void writevoronoi( vpointlist, vpointattriblist, vpointmarkerlist, vedgelist,
-				   vedgemarkerlist, vnormlist )
-REAL * *vpointlist;
-REAL **vpointattriblist;
-int **vpointmarkerlist;
-int **vedgelist;
-int **vedgemarkerlist;
-REAL **vnormlist;
+void writevoronoi(
+REAL * *vpointlist,
+REAL **vpointattriblist,
+int **vpointmarkerlist,
+int **vedgelist,
+int **vedgemarkerlist,
+REAL **vnormlist)
 
 #else /* not TRILIBRARY */
 
-void writevoronoi( vnodefilename, vedgefilename, argc, argv )
-char *vnodefilename;
-char *vedgefilename;
-int argc;
-char **argv;
+void writevoronoi(
+char *vnodefilename,
+char *vedgefilename,
+int argc,
+char **argv)
 
 #endif /* not TRILIBRARY */
 
@@ -12606,15 +12592,11 @@ char **argv;
 
 #ifdef TRILIBRARY
 
-void writeneighbors( neighborlist )
-int **neighborlist;
+void writeneighbors( int **neighborlist )
 
 #else /* not TRILIBRARY */
 
-void writeneighbors( neighborfilename, argc, argv )
-char *neighborfilename;
-int argc;
-char **argv;
+void writeneighbors( char *neighborfilename, int argc, char **argv )
 
 #endif /* not TRILIBRARY */
 
@@ -13073,17 +13055,17 @@ void statistics(){
 
 #ifdef TRILIBRARY
 
-void triangulate( triswitches, in, out, vorout )
-char *triswitches;
-struct triangulateio *in;
-struct triangulateio *out;
-struct triangulateio *vorout;
+void triangulate(
+char *triswitches,
+struct triangulateio *in,
+struct triangulateio *out,
+struct triangulateio *vorout)
 
 #else /* not TRILIBRARY */
 
-int main( argc, argv )
-int argc;
-char **argv;
+int main(
+int argc,
+char **argv)
 
 #endif /* not TRILIBRARY */
 

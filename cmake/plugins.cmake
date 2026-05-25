@@ -91,3 +91,24 @@ add_plugin(meshtex
 		${PROJECT_SOURCE_DIR}/plugins/meshtex/SetScaleDialog.cpp
 )
 target_link_libraries(meshtex PRIVATE Qt6::Core Qt6::Gui Qt6::Widgets Qt6::Svg Qt6::OpenGL Qt6::OpenGLWidgets)
+
+if(0)
+add_plugin(gensurf
+	SOURCES
+		${PROJECT_SOURCE_DIR}/plugins/gtkgensurf/triangle.c
+		${PROJECT_SOURCE_DIR}/plugins/gtkgensurf/bitmap.cpp
+		${PROJECT_SOURCE_DIR}/plugins/gtkgensurf/dec.cpp
+		${PROJECT_SOURCE_DIR}/plugins/gtkgensurf/face.cpp
+		${PROJECT_SOURCE_DIR}/plugins/gtkgensurf/font.cpp
+		${PROJECT_SOURCE_DIR}/plugins/gtkgensurf/gendlgs.cpp
+		${PROJECT_SOURCE_DIR}/plugins/gtkgensurf/genmap.cpp
+		${PROJECT_SOURCE_DIR}/plugins/gtkgensurf/gensurf.cpp
+		${PROJECT_SOURCE_DIR}/plugins/gtkgensurf/heretic.cpp
+		${PROJECT_SOURCE_DIR}/plugins/gtkgensurf/plugin.cpp
+		${PROJECT_SOURCE_DIR}/plugins/gtkgensurf/view.cpp
+)
+target_link_libraries(gensurf PRIVATE Qt6::Core Qt6::Gui Qt6::Widgets Qt6::Svg Qt6::OpenGL Qt6::OpenGLWidgets)
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+	set_source_files_properties(${PROJECT_SOURCE_DIR}/plugins/gtkgensurf/triangle.c PROPERTIES COMPILE_FLAGS "-Wno-old-style-definition -Wno-unused-but-set-variable")
+endif()
+endif()
