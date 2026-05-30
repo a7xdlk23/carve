@@ -98,7 +98,7 @@ target_compile_options(q3map2 PRIVATE
 if(WIN32 AND TARGET ZLIB::ZLIB)
 	add_custom_command(TARGET q3map2 POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E copy_if_different
-			$<TARGET_FILE:ZLIB::ZLIB>
+			$<TARGET_RUNTIME_DLLS:ZLIB::ZLIB>
 			$<TARGET_FILE_DIR:q3map2>
 	)
 endif()
