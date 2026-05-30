@@ -41,11 +41,11 @@ jobs:
 
     - name: Configure
       run: |
-        cmake -S. --preset DefaultNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=install
+        cmake -S. --preset DefaultNinja -DCMAKE_BUILD_TYPE=Release
 
     - name: Build
       run: |
-        cmake --build --preset DefaultNinja --target install
+        cmake --build --preset DefaultNinja
 
     - name: Deploy
       run: |
