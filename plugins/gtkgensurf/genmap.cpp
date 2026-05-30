@@ -32,8 +32,6 @@ int surface[3];
 
 #include "iundo.h"
 
-#include "refcounted_ptr.h"
-
 #include <vector>
 #include <list>
 #include <map>

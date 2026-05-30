@@ -147,8 +147,6 @@ void QERPlug_Dispatch( const char *p, vec3_t vMin, vec3_t vMax, bool bSingleBrus
 // =============================================================================
 // SYNAPSE
 
-#include "synapse.h"
-
 class GenSurfSynapseClient : public CSynapseClient
 {
 public:
