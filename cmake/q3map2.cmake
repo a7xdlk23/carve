@@ -96,14 +96,11 @@ target_compile_options(q3map2 PRIVATE
 )
 
 if(WIN32 AND TARGET ZLIB::ZLIB)
-	get_target_property(_zlib_target_type ZLIB::ZLIB TYPE)
-	if(_zlib_target_type STREQUAL "SHARED_LIBRARY")
-		add_custom_command(TARGET q3map2 POST_BUILD
-			COMMAND ${CMAKE_COMMAND} -E copy_if_different
-				$<TARGET_FILE:ZLIB::ZLIB>
-				$<TARGET_FILE_DIR:q3map2>
-		)
-	endif()
+	add_custom_command(TARGET q3map2 POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different
+			$<TARGET_FILE:ZLIB::ZLIB>
+			$<TARGET_FILE_DIR:q3map2>
+	)
 endif()
 
 target_compile_definitions(q3map2 PRIVATE $<$<CONFIG:Debug>:_DEBUG> $<$<NOT:$<BOOL:${WIN32}>>:POSIX> $<$<BOOL:${WIN32}>:WIN32>)

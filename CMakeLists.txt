@@ -311,14 +311,11 @@ install(TARGETS radiant
 install(SCRIPT ${radiant_deploy_script})
 
 if(WIN32)
-	get_target_property(_libxml2_target_type LibXml2::LibXml2 TYPE)
-	if(_libxml2_target_type STREQUAL "SHARED_LIBRARY")
-		add_custom_command(TARGET radiant POST_BUILD
-			COMMAND ${CMAKE_COMMAND} -E copy_if_different
-				$<TARGET_FILE:LibXml2::LibXml2>
-				$<TARGET_FILE_DIR:radiant>
-		)
-	endif()
+	add_custom_command(TARGET radiant POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different
+			$<TARGET_FILE:LibXml2::LibXml2>
+			$<TARGET_FILE_DIR:radiant>
+	)
 endif()
 
 target_compile_definitions(radiant PRIVATE QT_NO_KEYWORDS)
