@@ -96,11 +96,24 @@ target_compile_options(q3map2 PRIVATE
 )
 
 if(WIN32)
-	add_custom_command(TARGET q3map2 POST_BUILD
-		COMMAND ${CMAKE_COMMAND} -E copy_if_different
-			$<TARGET_RUNTIME_DLLS:q3map2>
-			$<TARGET_FILE_DIR:q3map2>
-	)
+	install(CODE [[
+		file(GET_RUNTIME_DEPENDENCIES
+			RESOLVED_DEPENDENCIES_VAR _resolved_deps
+			UNRESOLVED_DEPENDENCIES_VAR _unresolved_deps
+			EXECUTABLES
+				$<TARGET_FILE:q3map2>
+			PRE_EXCLUDE_REGEXES
+				"api-ms-" "ext-ms-" "Qt6"
+			POST_EXCLUDE_REGEXES
+				".*system32/.*\\.dll"
+			DIRECTORIES
+				$<TARGET_RUNTIME_DLL_DIRS:q3map2>
+		)
+		if(_unresolved_deps)
+			message(WARNING "q3map2 unresolved dependencies: ${_unresolved_deps}")
+		endif()
+		file(COPY ${_resolved_deps} DESTINATION $<TARGET_FILE_DIR:q3map2>)
+	]])
 endif()
 
 target_compile_definitions(q3map2 PRIVATE $<$<CONFIG:Debug>:_DEBUG> $<$<NOT:$<BOOL:${WIN32}>>:POSIX> $<$<BOOL:${WIN32}>:WIN32>)

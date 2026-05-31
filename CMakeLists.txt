@@ -299,6 +299,7 @@ qt_add_resources(radiant "radiant"
 		"${PROJECT_SOURCE_DIR}/resources"
 )
 
+if(0)
 qt_generate_deploy_app_script(
 	TARGET radiant
 	OUTPUT_SCRIPT radiant_deploy_script
@@ -309,13 +310,27 @@ install(TARGETS radiant
 	RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/install
 )
 install(SCRIPT ${radiant_deploy_script})
+endif()
 
 if(WIN32)
-	add_custom_command(TARGET radiant POST_BUILD
-		COMMAND ${CMAKE_COMMAND} -E copy_if_different
-			$<TARGET_RUNTIME_DLLS:radiant>
-			$<TARGET_FILE_DIR:radiant>
-	)
+	install(CODE [[
+		file(GET_RUNTIME_DEPENDENCIES
+			RESOLVED_DEPENDENCIES_VAR _resolved_deps
+			UNRESOLVED_DEPENDENCIES_VAR _unresolved_deps
+			EXECUTABLES
+				$<TARGET_FILE:radiant>
+			PRE_EXCLUDE_REGEXES
+				"api-ms-" "ext-ms-" "Qt6"
+			POST_EXCLUDE_REGEXES
+				".*system32/.*\\.dll"
+			DIRECTORIES
+				$<TARGET_RUNTIME_DLL_DIRS:radiant>
+		)
+		if(_unresolved_deps)
+			message(WARNING "radiant unresolved dependencies: ${_unresolved_deps}")
+		endif()
+		file(COPY ${_resolved_deps} DESTINATION $<TARGET_FILE_DIR:radiant>)
+	]])
 endif()
 
 target_compile_definitions(radiant PRIVATE QT_NO_KEYWORDS)
