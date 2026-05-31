@@ -166,12 +166,12 @@ static void draw_preview(){
 
 static gint expose( GtkWidget *widget, GdkEventExpose *event, gpointer data ){
 	if ( event->count > 0 ) {
-		return TRUE;
+		return true;
 	}
 
 	if ( !g_UIGtkTable.m_pfn_glwidget_make_current( g_pPreviewWidget ) ) {
 		g_FuncTable.m_pfnSysPrintf( "GtkGenSurf: glMakeCurrent failed\n" );
-		return TRUE;
+		return true;
 	}
 
 	draw_preview();
@@ -179,7 +179,7 @@ static gint expose( GtkWidget *widget, GdkEventExpose *event, gpointer data ){
 	g_UIGtkTable.m_pfn_glwidget_swap_buffers( g_pPreviewWidget );
 	g_GLTable.m_pfn_QE_CheckOpenGLForErrors();
 
-	return TRUE;
+	return true;
 }
 
 static void button_press( GtkWidget *widget, GdkEventButton *event, gpointer data ){
@@ -216,12 +216,12 @@ static void button_press( GtkWidget *widget, GdkEventButton *event, gpointer dat
 
 	// Control key pressed - add this point, or remove it if already selected
 	if ( ( event->state & GDK_CONTROL_MASK ) != 0 ) {
-		Selected = FALSE;
+		Selected = false;
 		if ( NumVerticesSelected ) {
 			for ( k = 0; k < NumVerticesSelected && !Selected; k++ )
 			{
 				if ( Vertex[k].i == i && Vertex[k].j == j ) {
-					Selected = TRUE;
+					Selected = true;
 					ks = k;
 				}
 			}
@@ -248,10 +248,10 @@ static void button_press( GtkWidget *widget, GdkEventButton *event, gpointer dat
 	else if ( ( event->state & GDK_SHIFT_MASK ) != 0 ) {
 		if ( NumVerticesSelected ) {
 			NumVerticesSelected = 1;
-			i0 = min( Vertex[0].i, i );
-			i1 = max( Vertex[0].i, i );
-			j0 = min( Vertex[0].j, j );
-			j1 = max( Vertex[0].j, j );
+			i0 = std::min( Vertex[0].i, i );
+			i1 = std::max( Vertex[0].i, i );
+			j0 = std::min( Vertex[0].j, j );
+			j1 = std::max( Vertex[0].j, j );
 			for ( i = i0; i <= i1; i++ )
 			{
 				for ( j = j0; j <= j1; j++ )
@@ -349,8 +349,8 @@ static void motion( GtkWidget *widget, GdkEventMotion *event, gpointer data ){
 }
 
 static gint preview_close( GtkWidget *widget, gpointer data ){
-	gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON( g_object_get_data( G_OBJECT( g_pWnd ), "main_preview" ) ), FALSE );
-	return TRUE;
+	gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON( g_object_get_data( G_OBJECT( g_pWnd ), "main_preview" ) ), false );
+	return true;
 }
 
 static void preview_focusout( GtkSpinButton *spin, GdkEventFocus *event, double *data ){
@@ -360,7 +360,7 @@ static void preview_focusout( GtkSpinButton *spin, GdkEventFocus *event, double 
 
 static gint doublevariable_spinfocusout( GtkWidget* widget, GdkEventFocus* event, gpointer data ){
 	preview_focusout( GTK_SPIN_BUTTON( widget ), event, reinterpret_cast<double*>( data ) );
-	return FALSE;
+	return false;
 }
 
 static void preview_spin( GtkAdjustment *adj, double *data ){
@@ -384,48 +384,48 @@ void CreateViewWindow(){
 	gtk_window_set_transient_for( GTK_WINDOW( dlg ), GTK_WINDOW( g_pWnd ) );
 	gtk_window_set_default_size( GTK_WINDOW( dlg ), 300, 400 );
 
-	vbox = gtk_vbox_new( FALSE, 5 );
+	vbox = gtk_vbox_new( false, 5 );
 	gtk_widget_show( vbox );
 	gtk_container_add( GTK_CONTAINER( dlg ), vbox );
 
 #ifndef ISOMETRIC
-	hbox = gtk_hbox_new( TRUE, 5 );
+	hbox = gtk_hbox_new( true, 5 );
 	gtk_widget_show( hbox );
-	gtk_box_pack_start( GTK_BOX( vbox ), hbox, FALSE, TRUE, 0 );
+	gtk_box_pack_start( GTK_BOX( vbox ), hbox, false, true, 0 );
 	gtk_container_set_border_width( GTK_CONTAINER( hbox ), 3 );
 
 	label = gtk_label_new( "Elevation" );
 	gtk_widget_show( label );
 	gtk_misc_set_alignment( GTK_MISC( label ), 1, 0.5 );
-	gtk_box_pack_start( GTK_BOX( hbox ), label, FALSE, TRUE, 0 );
+	gtk_box_pack_start( GTK_BOX( hbox ), label, false, true, 0 );
 
 	adj = gtk_adjustment_new( 30, -90, 90, 1, 10, 0 );
 	g_signal_connect( adj, "value_changed", G_CALLBACK( preview_spin ), &elevation );
 	spin = gtk_spin_button_new( GTK_ADJUSTMENT( adj ), 1, 0 );
 	gtk_widget_show( spin );
-	gtk_box_pack_start( GTK_BOX( hbox ), spin, FALSE, TRUE, 0 );
+	gtk_box_pack_start( GTK_BOX( hbox ), spin, false, true, 0 );
 	g_signal_connect( G_OBJECT( spin ), "focus_out_event", G_CALLBACK( doublevariable_spinfocusout ), &elevation );
 
 	adj = gtk_adjustment_new( 30, 0, 359, 1, 10, 0 );
 	g_signal_connect( adj, "value_changed", G_CALLBACK( preview_spin ), &azimuth );
 	spin = gtk_spin_button_new( GTK_ADJUSTMENT( adj ), 1, 0 );
 	gtk_widget_show( spin );
-	gtk_spin_button_set_wrap( GTK_SPIN_BUTTON( spin ), TRUE );
-	gtk_box_pack_end( GTK_BOX( hbox ), spin, FALSE, TRUE, 0 );
+	gtk_spin_button_set_wrap( GTK_SPIN_BUTTON( spin ), true );
+	gtk_box_pack_end( GTK_BOX( hbox ), spin, false, true, 0 );
 
 	label = gtk_label_new( "Azimuth" );
 	gtk_widget_show( label );
 	gtk_misc_set_alignment( GTK_MISC( label ), 1, 0.5 );
-	gtk_box_pack_end( GTK_BOX( hbox ), label, FALSE, TRUE, 0 );
+	gtk_box_pack_end( GTK_BOX( hbox ), label, false, true, 0 );
 	g_signal_connect( G_OBJECT( spin ), "focus_out_event", G_CALLBACK( doublevariable_spinfocusout ), &azimuth );
 #endif
 
 	frame = gtk_frame_new( NULL );
 	gtk_widget_show( frame );
 	gtk_frame_set_shadow_type( GTK_FRAME( frame ), GTK_SHADOW_IN );
-	gtk_box_pack_start( GTK_BOX( vbox ), frame, TRUE, TRUE, 0 );
+	gtk_box_pack_start( GTK_BOX( vbox ), frame, true, true, 0 );
 
-	g_pPreviewWidget = g_UIGtkTable.m_pfn_glwidget_new( FALSE, NULL );
+	g_pPreviewWidget = g_UIGtkTable.m_pfn_glwidget_new( false, NULL );
 
 	gtk_widget_set_events( g_pPreviewWidget, GDK_EXPOSURE_MASK | GDK_BUTTON_PRESS_MASK | GDK_POINTER_MOTION_MASK );
 	g_signal_connect( G_OBJECT( g_pPreviewWidget ), "expose_event", G_CALLBACK( expose ), NULL );
@@ -977,7 +977,7 @@ void DrawGrid( Rect rc ){
 	h = (double)( rc.top - rc.bottom + 1 ) - cxChar - cyChar;
 
 	SFG = w / ( Hur - Hll );
-	SFG = min( SFG, h / ( Vur - Vll ) );
+	SFG = std::min( SFG, h / ( Vur - Vll ) );
 
 	// Center drawing
 	X0G = (int)( rc.left + rc.right - (int)( SFG * ( Hur - Hll ) ) ) / 2;
@@ -1125,7 +1125,7 @@ void GetScaleFactor( Rect rc ){
 	h = (double)( rc.top - rc.bottom + 1 ) - cxChar;
 
 	SF = w / ( ( XHi - XLo ) * COSXA + ( YHi - YLo ) * COSYA );
-	SF = min( SF, h / ( ( XHi - XLo ) * SINXA + ( YHi - YLo ) * SINYA + ZHi - ZLo ) );
+	SF = std::min( SF, h / ( ( XHi - XLo ) * SINXA + ( YHi - YLo ) * SINYA + ZHi - ZLo ) );
 	// Center drawing
 	X0 = (int)( rc.left + rc.right - (int)( SF * ( ( XHi - XLo ) * COSXA + ( YHi - YLo ) * COSYA ) ) ) / 2;
 	Y0 = (int)( rc.top + rc.bottom - (int)( SF * ( ( XHi - XLo ) * SINXA + ( YHi - YLo ) * SINYA + ZHi - ZLo ) ) ) / 2;
@@ -1137,7 +1137,7 @@ void GetScaleFactor( Rect rc ){
 	h = (double)( rc.top - rc.bottom + 1 ) - cxChar;
 
 	SF = w / ( Hhi - Hlo );
-	SF = min( SF, h / ( Vhi - Vlo ) );
+	SF = std::min( SF, h / ( Vhi - Vlo ) );
 	X0 = (int)( rc.left + rc.right - (int)( SF * ( Hhi - Hlo ) ) ) / 2;
 	Y0 = (int)( rc.top + rc.bottom + (int)( SF * ( Vhi - Vlo ) ) ) / 2;
 #endif
@@ -1230,10 +1230,10 @@ void evaluate(){
 	{
 		for ( j = 0; j <= NV; j++ )
 		{
-			Hlo = min( Hlo,xyz[i][j].pp[0] );
-			Hhi = max( Hhi,xyz[i][j].pp[0] );
-			Vlo = min( Vlo,xyz[i][j].pp[1] );
-			Vhi = max( Vhi,xyz[i][j].pp[1] );
+			Hlo = std::min( Hlo,xyz[i][j].pp[0] );
+			Hhi = std::max( Hhi,xyz[i][j].pp[0] );
+			Vlo = std::min( Vlo,xyz[i][j].pp[1] );
+			Vhi = std::max( Vhi,xyz[i][j].pp[1] );
 		}
 	}
 
@@ -1267,10 +1267,10 @@ void evaluate(){
 	for ( i = 0; i <= 3; i++ )
 	{
 		project( &v[i] );
-		Hlo = min( Hlo,v[i].pp[0] );
-		Hhi = max( Hhi,v[i].pp[0] );
-		Vlo = min( Vlo,v[i].pp[1] );
-		Vhi = max( Vhi,v[i].pp[1] );
+		Hlo = std::min( Hlo,v[i].pp[0] );
+		Hhi = std::max( Hhi,v[i].pp[0] );
+		Vlo = std::min( Vlo,v[i].pp[1] );
+		Vhi = std::max( Vhi,v[i].pp[1] );
 	}
 
 }

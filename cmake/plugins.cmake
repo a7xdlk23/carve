@@ -112,6 +112,7 @@ add_plugin(gensurf
 		${PROJECT_SOURCE_DIR}/plugins/gtkgensurf/plugin.cpp
 		${PROJECT_SOURCE_DIR}/plugins/gtkgensurf/view.cpp
 )
+target_link_libraries(gensurf PRIVATE mathlib)
 target_link_libraries(gensurf PRIVATE Qt6::Core Qt6::Gui Qt6::Widgets Qt6::Svg Qt6::OpenGL Qt6::OpenGLWidgets)
 target_compile_options(gensurf PRIVATE
 	$<$<AND:$<COMPILE_LANGUAGE:C>,$<C_COMPILER_ID:GNU,Clang>>:-Wno-old-style-definition>

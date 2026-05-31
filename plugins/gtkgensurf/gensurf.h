@@ -20,8 +20,11 @@
 #ifndef _GENSURF_H_
 #define _GENSURF_H_
 
-#include <string.h>
-#include <stdio.h>
+#include <cstring>
+#include <cstdio>
+#include <algorithm>
+
+#include "qerplugin.h"
 
 #include "iscenegraph.h"
 #define USE_QERTABLE_DEFINE
@@ -46,8 +49,9 @@ extern _QERBrushTable __BRUSHTABLENAME;
 #include "igl.h"
 #include "ientity.h"
 
-#include "gendlgs.h"
+#include "mathlib.h"
 
+#include "gendlgs.h"
 
 #define PLUGIN
 #define Q3RADIANT

@@ -118,7 +118,7 @@ void MakeDecimatedMap( int *NumNodes, int *NumTris, NODE **pNode, TRI **pTri ){
 	// TriTable stores the largest error in a triangle and the node where that
 	// error occurs
 	TriTable = (TRITABLE *) malloc( NH * NV * 2 * sizeof( TRITABLE ) );
-	NumNodesToSave = min( NumNodes[0], (int)( 0.01 * ( 100 - Decimate ) * ( NumNodes[0] - NumNodesUsed ) + NumNodesUsed ) );
+	NumNodesToSave = std::min( NumNodes[0], (int)( 0.01 * ( 100 - Decimate ) * ( NumNodes[0] - NumNodesUsed ) + NumNodesUsed ) );
 
 	while ( NumNodesUsed < NumNodesToSave )
 	{
@@ -173,7 +173,7 @@ void MakeDecimatedMap( int *NumNodes, int *NumTris, NODE **pNode, TRI **pTri ){
 			                      Tri[Node[i].tri].plane.normal[j1] * Node[i].p[j1] -
 			                      Tri[Node[i].tri].plane.normal[j2] * Node[i].p[j2]  ) /
 			    Tri[Node[i].tri].plane.normal[j0];
-			biggesterror = max( biggesterror,Absolute( Node[i].error ) );
+			biggesterror = std::max( biggesterror,Absolute( Node[i].error ) );
 		}
 		if ( biggesterror == 0 ) {
 			NumNodesToSave = NumNodesUsed;
@@ -313,23 +313,23 @@ void MakeDecimatedMap( int *NumNodes, int *NumTris, NODE **pNode, TRI **pTri ){
 	for ( i = 0; i < NumTris[0]; i++ )
 	{
 		Tri[i].min[0] =                   Node[Tri[i].v[0]].p[0];
-		Tri[i].min[0] = min( Tri[i].min[0],Node[Tri[i].v[1]].p[0] );
-		Tri[i].min[0] = min( Tri[i].min[0],Node[Tri[i].v[2]].p[0] );
+		Tri[i].min[0] = std::min( Tri[i].min[0],Node[Tri[i].v[1]].p[0] );
+		Tri[i].min[0] = std::min( Tri[i].min[0],Node[Tri[i].v[2]].p[0] );
 		Tri[i].min[1] =                   Node[Tri[i].v[0]].p[1];
-		Tri[i].min[1] = min( Tri[i].min[1],Node[Tri[i].v[1]].p[1] );
-		Tri[i].min[1] = min( Tri[i].min[1],Node[Tri[i].v[2]].p[1] );
+		Tri[i].min[1] = std::min( Tri[i].min[1],Node[Tri[i].v[1]].p[1] );
+		Tri[i].min[1] = std::min( Tri[i].min[1],Node[Tri[i].v[2]].p[1] );
 		Tri[i].min[2] =                   Node[Tri[i].v[0]].p[2];
-		Tri[i].min[2] = min( Tri[i].min[2],Node[Tri[i].v[1]].p[2] );
-		Tri[i].min[2] = min( Tri[i].min[2],Node[Tri[i].v[2]].p[2] );
+		Tri[i].min[2] = std::min( Tri[i].min[2],Node[Tri[i].v[1]].p[2] );
+		Tri[i].min[2] = std::min( Tri[i].min[2],Node[Tri[i].v[2]].p[2] );
 		Tri[i].max[0] =                   Node[Tri[i].v[0]].p[0];
-		Tri[i].max[0] = max( Tri[i].max[0],Node[Tri[i].v[1]].p[0] );
-		Tri[i].max[0] = max( Tri[i].max[0],Node[Tri[i].v[2]].p[0] );
+		Tri[i].max[0] = std::max( Tri[i].max[0],Node[Tri[i].v[1]].p[0] );
+		Tri[i].max[0] = std::max( Tri[i].max[0],Node[Tri[i].v[2]].p[0] );
 		Tri[i].max[1] =                   Node[Tri[i].v[0]].p[1];
-		Tri[i].max[1] = max( Tri[i].max[1],Node[Tri[i].v[1]].p[1] );
-		Tri[i].max[1] = max( Tri[i].max[1],Node[Tri[i].v[2]].p[1] );
+		Tri[i].max[1] = std::max( Tri[i].max[1],Node[Tri[i].v[1]].p[1] );
+		Tri[i].max[1] = std::max( Tri[i].max[1],Node[Tri[i].v[2]].p[1] );
 		Tri[i].max[2] =                   Node[Tri[i].v[0]].p[2];
-		Tri[i].max[2] = max( Tri[i].max[2],Node[Tri[i].v[1]].p[2] );
-		Tri[i].max[2] = max( Tri[i].max[2],Node[Tri[i].v[2]].p[2] );
+		Tri[i].max[2] = std::max( Tri[i].max[2],Node[Tri[i].v[1]].p[2] );
+		Tri[i].max[2] = std::max( Tri[i].max[2],Node[Tri[i].v[2]].p[2] );
 	}
 	/*
 	   ghCursorCurrent = ghCursorDefault;
@@ -769,11 +769,11 @@ void MakeBrushes( int NumTris, NODE *Node, TRI *Tri,bool surf,
 	// if texture2 is identical to texture0, there's no need to
 	// check surface angle
 	if ( !g_strcasecmp( texture0,texture2 ) || !strlen( texture2 ) ) {
-		CheckAngle = FALSE;
+		CheckAngle = false;
 	}
 	else
 	{
-		CheckAngle = TRUE;
+		CheckAngle = true;
 		Steep = (float)cos( (double)SlantAngle / 57.2957795 );
 		switch ( Plane )
 		{
@@ -1069,7 +1069,7 @@ void MapOut( int NumNodes,int NumTris, NODE *Node, TRI *Tri ){
 	   SetCursor(ghCursorCurrent);
 	 */
 	UseDetail = 1; // this is temporary
-	MakeBrushes( NumTris,Node,Tri,TRUE,0,Texture[Game][0],Texture[Game][1],Texture[Game][2] );
+	MakeBrushes( NumTris,Node,Tri,true,0,Texture[Game][0],Texture[Game][1],Texture[Game][2] );
 
 	if ( AddHints || GimpHints ) {
 		switch ( Game )
@@ -1101,7 +1101,7 @@ void MapOut( int NumNodes,int NumTris, NODE *Node, TRI *Tri ){
 	}
 
 	if ( GimpHints ) {
-		MakeBrushes( NumTris,Node,Tri,FALSE,HINT_OFFSET,hint,hint,hint );
+		MakeBrushes( NumTris,Node,Tri,false,HINT_OFFSET,hint,hint,hint );
 	}
 
 	if ( AddHints == 1 ) {
@@ -1162,9 +1162,9 @@ void MapOut( int NumNodes,int NumTris, NODE *Node, TRI *Tri ){
 		brush.Number = 0;
 		brush.NumFaces = 6;
 		MaxHints = NH * NV - 1;
-		for ( w = 1; w < min( 16,NH ) && brush.Number < MaxHints; w++ )
+		for ( w = 1; w < std::min( 16,NH ) && brush.Number < MaxHints; w++ )
 		{
-			for ( h = max( 1,w / 2 ); h < min( 16,NV ) && brush.Number < MaxHints; h++ )
+			for ( h = std::max( 1,w / 2 ); h < std::min( 16,NV ) && brush.Number < MaxHints; h++ )
 			{
 				for ( i = 0; i <= NH - w && brush.Number < MaxHints; i++ )
 				{
@@ -1186,16 +1186,16 @@ void MapOut( int NumNodes,int NumTris, NODE *Node, TRI *Tri ){
 						}
 						for ( k = 0, OK = 1; k < NumTris && OK; k++ )
 						{
-							if ( Tri[k].min[j1] >= max( Node[q[0]].p[j1],Node[q[2]].p[j1] ) ) {
+							if ( Tri[k].min[j1] >= std::max( Node[q[0]].p[j1],Node[q[2]].p[j1] ) ) {
 								continue;
 							}
-							if ( Tri[k].min[j2] >= max( Node[q[0]].p[j2],Node[q[2]].p[j2] ) ) {
+							if ( Tri[k].min[j2] >= std::max( Node[q[0]].p[j2],Node[q[2]].p[j2] ) ) {
 								continue;
 							}
-							if ( Tri[k].max[j1] <= min( Node[q[0]].p[j1],Node[q[2]].p[j1] ) ) {
+							if ( Tri[k].max[j1] <= std::min( Node[q[0]].p[j1],Node[q[2]].p[j1] ) ) {
 								continue;
 							}
-							if ( Tri[k].max[j2] <= min( Node[q[0]].p[j2],Node[q[2]].p[j2] ) ) {
+							if ( Tri[k].max[j2] <= std::min( Node[q[0]].p[j2],Node[q[2]].p[j2] ) ) {
 								continue;
 							}
 

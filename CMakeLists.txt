@@ -111,6 +111,21 @@ target_include_directories(commandlib PRIVATE
 	${PROJECT_SOURCE_DIR}/libs
 )
 
+# mathlib
+
+add_library(mathlib STATIC
+	${PROJECT_SOURCE_DIR}/libs/mathlib/bbox.c
+	${PROJECT_SOURCE_DIR}/libs/mathlib/line.c
+	${PROJECT_SOURCE_DIR}/libs/mathlib/m4x4.c
+	${PROJECT_SOURCE_DIR}/libs/mathlib/mathlib.c
+	${PROJECT_SOURCE_DIR}/libs/mathlib/ray.c
+)
+
+target_include_directories(mathlib PRIVATE
+	${PROJECT_SOURCE_DIR}/include
+	${PROJECT_SOURCE_DIR}/libs
+)
+
 # gtkutil
 
 add_library(gtkutil STATIC

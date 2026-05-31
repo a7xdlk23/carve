@@ -17,16 +17,17 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include <stdlib.h>
-#include <math.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cmath>
+#include <cstdio>
+#include <cstdint>
 #include "gensurf.h"
 
 // Heretic 2 - specific routines
 
 typedef struct palette_s
 {
-	guint8 r,g,b;
+	uint8_t r,g,b;
 } palette_t;
 
 #define MIP_VERSION     2

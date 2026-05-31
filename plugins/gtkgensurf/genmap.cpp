@@ -66,27 +66,27 @@ double CalculateSnapValue( double value ){
 //=============================================================
 bool ValidSurface(){
 	if ( WaveType == WAVE_BITMAP && !gbmp.colors ) {
-		return FALSE;
+		return false;
 	}
 	if ( NH  < 1 ) {
-		return FALSE;
+		return false;
 	}
 	if ( NH  > MAX_ROWS ) {
-		return FALSE;
+		return false;
 	}
 	if ( NV  < 1 ) {
-		return FALSE;
+		return false;
 	}
 	if ( NV  > MAX_ROWS ) {
-		return FALSE;
+		return false;
 	}
 	if ( Hll >= Hur ) {
-		return FALSE;
+		return false;
 	}
 	if ( Vll >= Vur ) {
-		return FALSE;
+		return false;
 	}
-	return TRUE;
+	return true;
 }
 
 //=============================================================
@@ -304,11 +304,11 @@ void MapBrushes(){
 	// if surftext2 is identical to surftext, there's no need to
 	// check surface angle
 	if ( !g_strcasecmp( surftext,surftext2 ) ) {
-		CheckAngle = FALSE;
+		CheckAngle = false;
 	}
 	else
 	{
-		CheckAngle = TRUE;
+		CheckAngle = true;
 		Steep = (float)cos( (double)SlantAngle / 57.2957795 );
 		switch ( Plane )
 		{
@@ -1230,11 +1230,11 @@ void GenerateXYZ(){
 	case WAVE_COS_SIN:
 		if ( FixBorders ) {
 			NHalfcycles = (int)( ( Hur - Hll ) / ( WaveLength / 2. ) );
-			NHalfcycles = max( NHalfcycles,1 );
+			NHalfcycles = std::max( NHalfcycles,1 );
 			wh = 2. * ( Hur - Hll ) / NHalfcycles;
 			NHalfcycles = (int)( ( Vur - Vll ) / ( WaveLength / 2. ) );
 			wv = 2. * ( Vur - Vll ) / NHalfcycles;
-			NHalfcycles = max( NHalfcycles,1 );
+			NHalfcycles = std::max( NHalfcycles,1 );
 			i0 = 1;
 			i1 = NH - 1;
 			j0 = 1;
@@ -1378,17 +1378,17 @@ void GenerateXYZ(){
 						j0 = j - (int)( floor( xyz[i][j].range / dv - 0.5 ) + 1 );
 						j1 = j + j - j0;
 						if ( FixBorders ) {
-							i0 = max( i0,1 );
-							i1 = min( i1,NH - 1 );
-							j0 = max( j0,1 );
-							j1 = min( j1,NV - 1 );
+							i0 = std::max( i0,1 );
+							i1 = std::min( i1,NH - 1 );
+							j0 = std::max( j0,1 );
+							j1 = std::min( j1,NV - 1 );
 						}
 						else
 						{
-							i0 = max( i0,0 );
-							i1 = min( i1,NH );
-							j0 = max( j0,0 );
-							j1 = min( j1,NV );
+							i0 = std::max( i0,0 );
+							i1 = std::min( i1,NH );
+							j0 = std::max( j0,0 );
+							j1 = std::min( j1,NV );
 						}
 						for ( ii = i0; ii <= i1; ii++ )
 						{
@@ -1402,7 +1402,7 @@ void GenerateXYZ(){
 									continue;
 								}
 								dr = sqrt( range / maxrange );
-								rate = max( -30.,min( xyz[i][j].rate,30. ) );
+								rate = std::max( -30.,std::min( xyz[i][j].rate,30. ) );
 								if ( rate < -1. ) {
 									delta = pow( ( 1. - dr ),-rate + 1. );
 								}
@@ -1497,8 +1497,8 @@ void GenerateXYZ(){
 		{
 			for ( j = 0; j <= NV; j++ )
 			{
-				ymin = min( ymin,xyz[i][j].p[1] );
-				ymax = max( ymax,xyz[i][j].p[1] );
+				ymin = std::min( ymin,xyz[i][j].p[1] );
+				ymax = std::max( ymax,xyz[i][j].p[1] );
 			}
 		}
 		break;
@@ -1514,8 +1514,8 @@ void GenerateXYZ(){
 		{
 			for ( j = 0; j <= NV; j++ )
 			{
-				xmin = min( xmin,xyz[i][j].p[0] );
-				xmax = max( xmax,xyz[i][j].p[0] );
+				xmin = std::min( xmin,xyz[i][j].p[0] );
+				xmax = std::max( xmax,xyz[i][j].p[0] );
 			}
 		}
 		break;
@@ -1531,8 +1531,8 @@ void GenerateXYZ(){
 		{
 			for ( j = 0; j <= NV; j++ )
 			{
-				zmin = min( zmin,xyz[i][j].p[2] );
-				zmax = max( zmax,xyz[i][j].p[2] );
+				zmin = std::min( zmin,xyz[i][j].p[2] );
+				zmax = std::max( zmax,xyz[i][j].p[2] );
 			}
 		}
 	}
@@ -1915,7 +1915,7 @@ void PlasmaCloud(){
 //===========================================================================
 bool FixedPoint( int i, int j ){
 	if ( xyz[i][j].fixed ) {
-		return TRUE;
+		return true;
 	}
 	return !CanEdit( i,j );
 }
@@ -1923,31 +1923,31 @@ bool FixedPoint( int i, int j ){
 bool CanEdit( int i, int j ){
 	if ( FixBorders && ( ( WaveType == WAVE_COS_SIN ) || ( WaveType == WAVE_ROUGH_ONLY ) ) ) {
 		if ( i == 0 ) {
-			return FALSE;
+			return false;
 		}
 		if ( i == NH ) {
-			return FALSE;
+			return false;
 		}
 		if ( j == 0 ) {
-			return FALSE;
+			return false;
 		}
 		if ( j == NV ) {
-			return FALSE;
+			return false;
 		}
 	}
 	if ( i == 0 && j == 0 ) {
-		return FALSE;
+		return false;
 	}
 	if ( i == NH && j == 0 ) {
-		return FALSE;
+		return false;
 	}
 	if ( i == 0 && j == NV ) {
-		return FALSE;
+		return false;
 	}
 	if ( i == NH && j == NV ) {
-		return FALSE;
+		return false;
 	}
-	return TRUE;
+	return true;
 }
 /*============================================================================
    TriangleFromPoint
@@ -2008,7 +2008,7 @@ int PlayerStartZ( double x, double y ){
 		       gTri[t[k]].plane.normal[0] * x -
 		       gTri[t[k]].plane.normal[1] * y ) /
 		       gTri[t[k]].plane.normal[2];
-		z = max( z,zt );
+		z = std::max( z,zt );
 	}
 	return (int)( AtLeast( z,2. ) - PlayerBox[Game].z[0] );
 }

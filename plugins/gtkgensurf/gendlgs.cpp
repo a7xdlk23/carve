@@ -17,10 +17,10 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <cmath>
 #include "gensurf.h"
 
 #define GENERAL_TAB   0
@@ -38,7 +38,7 @@
 static GtkWidget *game_radios[NUMGAMES];
 static GtkWidget *wave_radios[5];
 static GtkWidget *plane_radios[6];
-static guint current_tab;
+static unsigned int current_tab;
 static int OldPreview;
 static int WasDetail;
 static int FirstPassComplete = 0;
@@ -110,43 +110,43 @@ static void SetupControls(){
 	case EXTENTS_TAB:
 		if ( Game != QUAKE3 ) {
 			gtk_widget_hide( GTK_WIDGET( g_object_get_data( G_OBJECT( g_pWnd ), "use_patches" ) ) );
-			ENABLE_WIDGET( "use_patches", FALSE );
+			ENABLE_WIDGET( "use_patches", false );
 		}
 		else
 		{
 			gtk_widget_show( GTK_WIDGET( g_object_get_data( G_OBJECT( g_pWnd ), "use_patches" ) ) );
-			ENABLE_WIDGET( "use_patches", TRUE );
+			ENABLE_WIDGET( "use_patches", true );
 		}
 
 		if ( Game == QUAKE3 && UsePatches != 0 ) {
-			ENABLE_WIDGET( "decimate", FALSE );
+			ENABLE_WIDGET( "decimate", false );
 		}
 		gtk_label_set_text( GTK_LABEL( g_object_get_data( G_OBJECT( g_pWnd ), "snap_text" ) ), "Snap to grid:" ); // ^Fishman - Snap to grid.
 		break;
 
 	case BITMAP_TAB:
 		if ( WaveType != WAVE_BITMAP ) {
-			ENABLE_WIDGET( "bmp_file", FALSE );
-			ENABLE_WIDGET( "bmp_file_browse", FALSE );
-			ENABLE_WIDGET( "bmp_black", FALSE );
-			ENABLE_WIDGET( "bmp_white", FALSE );
-			ENABLE_WIDGET( "bmp_text1", FALSE );
-			ENABLE_WIDGET( "bmp_text2", FALSE );
-			ENABLE_WIDGET( "bmp_text3", FALSE );
-			ENABLE_WIDGET( "bmp_reload", FALSE );
+			ENABLE_WIDGET( "bmp_file", false );
+			ENABLE_WIDGET( "bmp_file_browse", false );
+			ENABLE_WIDGET( "bmp_black", false );
+			ENABLE_WIDGET( "bmp_white", false );
+			ENABLE_WIDGET( "bmp_text1", false );
+			ENABLE_WIDGET( "bmp_text2", false );
+			ENABLE_WIDGET( "bmp_text3", false );
+			ENABLE_WIDGET( "bmp_reload", false );
 			gtk_label_set_text( GTK_LABEL( g_object_get_data( G_OBJECT( g_pWnd ), "bmp_note" ) ),
 			                    "These options are disabled unless \"From Bitmap\"\n"
 			                    "is selected as the Waveform on the General tab." );
 		}
 		else
 		{
-			ENABLE_WIDGET( "bmp_file", TRUE );
-			ENABLE_WIDGET( "bmp_file_browse", TRUE );
-			ENABLE_WIDGET( "bmp_black", TRUE );
-			ENABLE_WIDGET( "bmp_white", TRUE );
-			ENABLE_WIDGET( "bmp_text1", TRUE );
-			ENABLE_WIDGET( "bmp_text2", TRUE );
-			ENABLE_WIDGET( "bmp_text3", TRUE );
+			ENABLE_WIDGET( "bmp_file", true );
+			ENABLE_WIDGET( "bmp_file_browse", true );
+			ENABLE_WIDGET( "bmp_black", true );
+			ENABLE_WIDGET( "bmp_white", true );
+			ENABLE_WIDGET( "bmp_text1", true );
+			ENABLE_WIDGET( "bmp_text2", true );
+			ENABLE_WIDGET( "bmp_text3", true );
 			ENABLE_WIDGET( "bmp_reload", strlen( gbmp.name ) != 0 );
 			gtk_label_set_text( GTK_LABEL( g_object_get_data( G_OBJECT( g_pWnd ), "bmp_note" ) ),
 			                    "GenSurf works only with 8-bit bitmaps. Color indices are\n"
@@ -171,7 +171,7 @@ static void SetupControls(){
 		ENABLE_WIDGET( "tex_slant", ( UsePatches == 0 ) );
 		ENABLE_WIDGET( "detail", ( UsePatches == 0 ) );
 		if ( Game != QUAKE3 ) {
-			ENABLE_WIDGET( "terrain_ent", FALSE ); // ^Fishman - Adds terrain key to func_group.
+			ENABLE_WIDGET( "terrain_ent", false ); // ^Fishman - Adds terrain key to func_group.
 			ENABLE_WIDGET( "hint", ( UsePatches == 0 ) );
 		}
 		break;
@@ -181,44 +181,44 @@ static void SetupControls(){
 	{
 	case WAVE_HCYLINDER:
 	case WAVE_VCYLINDER:
-		ENABLE_WIDGET( "amplitude", TRUE );
-		ENABLE_WIDGET( "wavelength", TRUE );
-		ENABLE_WIDGET( "z00", TRUE );
-		ENABLE_WIDGET( "z01", TRUE );
-		ENABLE_WIDGET( "z10", TRUE );
-		ENABLE_WIDGET( "z11", TRUE );
-		ENABLE_WIDGET( "linearborder", TRUE );
-		ENABLE_WIDGET( "go", TRUE );
+		ENABLE_WIDGET( "amplitude", true );
+		ENABLE_WIDGET( "wavelength", true );
+		ENABLE_WIDGET( "z00", true );
+		ENABLE_WIDGET( "z01", true );
+		ENABLE_WIDGET( "z10", true );
+		ENABLE_WIDGET( "z11", true );
+		ENABLE_WIDGET( "linearborder", true );
+		ENABLE_WIDGET( "go", true );
 		break;
 	case WAVE_BITMAP:
-		ENABLE_WIDGET( "amplitude", FALSE );
-		ENABLE_WIDGET( "wavelength", FALSE );
-		ENABLE_WIDGET( "z00", FALSE );
-		ENABLE_WIDGET( "z01", FALSE );
-		ENABLE_WIDGET( "z10", FALSE );
-		ENABLE_WIDGET( "z11", FALSE );
-		ENABLE_WIDGET( "linearborder", FALSE );
-		ENABLE_WIDGET( "go", ( gbmp.colors != NULL ? TRUE : FALSE ) );
+		ENABLE_WIDGET( "amplitude", false );
+		ENABLE_WIDGET( "wavelength", false );
+		ENABLE_WIDGET( "z00", false );
+		ENABLE_WIDGET( "z01", false );
+		ENABLE_WIDGET( "z10", false );
+		ENABLE_WIDGET( "z11", false );
+		ENABLE_WIDGET( "linearborder", false );
+		ENABLE_WIDGET( "go", ( gbmp.colors != NULL ? true : false ) );
 		break;
 	case WAVE_ROUGH_ONLY:
-		ENABLE_WIDGET( "amplitude", FALSE );
-		ENABLE_WIDGET( "wavelength", FALSE );
-		ENABLE_WIDGET( "z00", TRUE );
-		ENABLE_WIDGET( "z01", TRUE );
-		ENABLE_WIDGET( "z10", TRUE );
-		ENABLE_WIDGET( "z11", TRUE );
-		ENABLE_WIDGET( "linearborder", TRUE );
-		ENABLE_WIDGET( "go", TRUE );
+		ENABLE_WIDGET( "amplitude", false );
+		ENABLE_WIDGET( "wavelength", false );
+		ENABLE_WIDGET( "z00", true );
+		ENABLE_WIDGET( "z01", true );
+		ENABLE_WIDGET( "z10", true );
+		ENABLE_WIDGET( "z11", true );
+		ENABLE_WIDGET( "linearborder", true );
+		ENABLE_WIDGET( "go", true );
 		break;
 	default:
-		ENABLE_WIDGET( "amplitude", TRUE );
-		ENABLE_WIDGET( "wavelength", TRUE );
-		ENABLE_WIDGET( "z00", TRUE );
-		ENABLE_WIDGET( "z01", TRUE );
-		ENABLE_WIDGET( "z10", TRUE );
-		ENABLE_WIDGET( "z11", TRUE );
-		ENABLE_WIDGET( "linearborder", TRUE );
-		ENABLE_WIDGET( "go", TRUE );
+		ENABLE_WIDGET( "amplitude", true );
+		ENABLE_WIDGET( "wavelength", true );
+		ENABLE_WIDGET( "z00", true );
+		ENABLE_WIDGET( "z01", true );
+		ENABLE_WIDGET( "z10", true );
+		ENABLE_WIDGET( "z11", true );
+		ENABLE_WIDGET( "linearborder", true );
+		ENABLE_WIDGET( "go", true );
 	}
 
 	switch ( Plane )
@@ -266,13 +266,13 @@ static void SetDlgValues( int tab ){
 		// than once anyhow.
 		if ( !FirstPassComplete ) {
 			for ( i = 0; i < NUMGAMES; i++ )
-				gtk_widget_set_sensitive( game_radios[i], ( i == Game ? TRUE : FALSE ) );
+				gtk_widget_set_sensitive( game_radios[i], ( i == Game ? true : false ) );
 			for ( i = 0; i < 6; i++ )
-				gtk_widget_set_sensitive( plane_radios[i], ( i == Plane ? TRUE : FALSE ) );
+				gtk_widget_set_sensitive( plane_radios[i], ( i == Plane ? true : false ) );
 		}
-		gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON( game_radios[Game] ), TRUE );
-		gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON( plane_radios[Plane] ), TRUE );
-		gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON( wave_radios[WaveType] ), TRUE );
+		gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON( game_radios[Game] ), true );
+		gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON( plane_radios[Plane] ), true );
+		gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON( wave_radios[WaveType] ), true );
 		gtk_spin_button_set_value( GTK_SPIN_BUTTON( g_object_get_data( G_OBJECT( g_pWnd ), "random" ) ),
 		                           RandomSeed );
 		sprintf( Text, RForm, WaveLength );
@@ -314,7 +314,7 @@ static void SetDlgValues( int tab ){
 		                          Decimate );
 
 		if ( Game == QUAKE3 && UsePatches ) {
-			gtk_widget_set_sensitive( GTK_WIDGET( g_object_get_data( G_OBJECT( g_pWnd ), "decimate" ) ), FALSE );
+			gtk_widget_set_sensitive( GTK_WIDGET( g_object_get_data( G_OBJECT( g_pWnd ), "decimate" ) ), false );
 
 			if ( NH % 2 ) {
 				NH++;
@@ -361,7 +361,7 @@ static void SetDlgValues( int tab ){
 		}
 		else
 		{
-			gtk_widget_set_sensitive( GTK_WIDGET( g_object_get_data( G_OBJECT( g_pWnd ), "decimate" ) ), TRUE );
+			gtk_widget_set_sensitive( GTK_WIDGET( g_object_get_data( G_OBJECT( g_pWnd ), "decimate" ) ), true );
 
 			gpointer spin = g_object_get_data( G_OBJECT( g_pWnd ), "nh" );
 			GtkAdjustment *adj = gtk_spin_button_get_adjustment( GTK_SPIN_BUTTON( spin ) );
@@ -406,11 +406,11 @@ static void SetDlgValues( int tab ){
 		CHECK_WIDGET( "detail", UseDetail );
 
 		if ( Game == QUAKE3 ) {
-			ENABLE_WIDGET( "hint", FALSE );
+			ENABLE_WIDGET( "hint", false );
 			AddHints = 0;
 		}
 		else{
-			ENABLE_WIDGET( "hint", TRUE );
+			ENABLE_WIDGET( "hint", true );
 		}
 		CHECK_WIDGET( "hint", AddHints );
 
@@ -551,7 +551,7 @@ static void ReadDlgValues( int tab ){
 			gbmp.black_value = atof( Text );
 			GetDlgItemText( hwnd,DLG_BMP_WHITE,Text,sizeof( Text ) );
 			gbmp.white_value = atof( Text );
-			UpdatePreview( TRUE );
+			UpdatePreview( true );
 		}
 		break;
 
@@ -574,7 +574,7 @@ static void ReadDlgValues( int tab ){
 			SendMessage( ghwnd,WM_COMMAND,DLG_PREVIEW,0 );
 		}
 		VertexMode = 0;
-		UpdatePreview( TRUE );
+		UpdatePreview( true );
 		break;
 
 	case TEXTURE_TAB:
@@ -639,12 +639,12 @@ static void ReadDlgValues( int tab ){
 // =============================================================================
 // main dialog callbacks
 
-static void switch_page( GtkNotebook *notebook, GtkWidget *page, guint page_num, gpointer data ){
+static void switch_page( GtkNotebook *notebook, GtkWidget *page, unsigned int page_num, gpointer data ){
 	if ( current_tab != page_num ) {
 		if ( page_num == FIXPOINTS_TAB ) {
 			OldPreview = Preview;
 			gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON( g_object_get_data( G_OBJECT( g_pWnd ),
-			                                                                    "main_preview" ) ), TRUE );
+			                                                                    "main_preview" ) ), true );
 			VertexMode = 1;
 			UpdatePreview( true );
 			NumVerticesSelected = 0;
@@ -653,7 +653,7 @@ static void switch_page( GtkNotebook *notebook, GtkWidget *page, guint page_num,
 		if ( current_tab == FIXPOINTS_TAB ) {
 			if ( !OldPreview ) {
 				gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON( g_object_get_data( G_OBJECT( g_pWnd ),
-				                                                                    "main_preview" ) ), FALSE );
+				                                                                    "main_preview" ) ), false );
 			}
 			VertexMode = 0;
 			UpdatePreview( true );
@@ -664,7 +664,7 @@ static void switch_page( GtkNotebook *notebook, GtkWidget *page, guint page_num,
 			WasDetail = UseDetail;
 			if ( AddHints ) {
 				UseDetail = 1;
-				ENABLE_WIDGET( "detail", FALSE );
+				ENABLE_WIDGET( "detail", false );
 			}
 		}
 
@@ -678,7 +678,7 @@ static gint main_close( GtkWidget *widget, gpointer data ){
 	gtk_widget_hide( g_pWnd );
 	gtk_widget_hide( g_pWndPreview );
 
-	return TRUE;
+	return true;
 }
 
 static void main_save( GtkWidget *widget, gpointer data ){
@@ -780,7 +780,7 @@ static void main_go( GtkWidget *widget, gpointer data ){
 static void general_game( GtkToggleButton *widget, gpointer data ){
 	if ( gtk_toggle_button_get_active( widget ) ) {
 		Game = GPOINTER_TO_INT( data );
-		UpdatePreview( TRUE );
+		UpdatePreview( true );
 	}
 }
 
@@ -788,7 +788,7 @@ static void general_plane( GtkToggleButton *widget, gpointer data ){
 	if ( gtk_toggle_button_get_active( widget ) ) {
 		Plane = GPOINTER_TO_INT( data );
 		SetupControls();
-		UpdatePreview( TRUE );
+		UpdatePreview( true );
 	}
 }
 
@@ -796,7 +796,7 @@ static void general_wave( GtkToggleButton *widget, gpointer data ){
 	if ( gtk_toggle_button_get_active( widget ) ) {
 		WaveType = GPOINTER_TO_INT( data );
 		SetupControls();
-		UpdatePreview( TRUE );
+		UpdatePreview( true );
 	}
 }
 
@@ -883,16 +883,16 @@ static gint bitmap_file_entryfocusout( GtkWidget* widget, GdkEventFocus* event, 
 		if ( strlen( gbmp.name ) ) {
 			OpenBitmap();
 		}
-		ENABLE_WIDGET( "go", ( gbmp.colors != NULL ? TRUE : FALSE ) );
+		ENABLE_WIDGET( "go", ( gbmp.colors != NULL ? true : false ) );
 	}
-	return FALSE;
+	return false;
 }
 
 static void bitmap_browse( GtkWidget *widget, gpointer data ){
 	const char *filename;
 	char *ptr;
 
-	filename = g_FuncTable.m_pfnFileDialog( g_pWnd, TRUE, "Bitmap File", gbmp.defpath );
+	filename = g_FuncTable.m_pfnFileDialog( g_pWnd, true, "Bitmap File", gbmp.defpath );
 
 	if ( filename != NULL ) {
 		strcpy( gbmp.name, filename );
@@ -904,7 +904,7 @@ static void bitmap_browse( GtkWidget *widget, gpointer data ){
 		}
 
 		OpenBitmap();
-		ENABLE_WIDGET( "go", ( gbmp.colors != NULL ? TRUE : FALSE ) );
+		ENABLE_WIDGET( "go", ( gbmp.colors != NULL ? true : false ) );
 	}
 }
 
@@ -912,10 +912,10 @@ static void bitmap_reload( GtkWidget *widget, gpointer data ){
 	strcpy( gbmp.name, gtk_entry_get_text( GTK_ENTRY( g_object_get_data( G_OBJECT( g_pWnd ), "bmp_file" ) ) ) );
 	if ( strlen( gbmp.name ) ) {
 		OpenBitmap();
-		ENABLE_WIDGET( "go", ( gbmp.colors != NULL ? TRUE : FALSE ) );
+		ENABLE_WIDGET( "go", ( gbmp.colors != NULL ? true : false ) );
 	}
 	else{
-		ENABLE_WIDGET( "go", FALSE );
+		ENABLE_WIDGET( "go", false );
 	}
 }
 
@@ -942,7 +942,7 @@ static gint fix_value_entryfocusout( GtkWidget* widget, GdkEventFocus *event, gp
 		                           (int)xyz[Vertex[0].i][Vertex[0].j].fixed_value );
 		UpdatePreview( true );
 	}
-	return FALSE;
+	return false;
 }
 
 static void fix_value_changed( GtkAdjustment *adj, gpointer data ){
@@ -963,7 +963,7 @@ static gint fix_range_entryfocusout( GtkWidget *widget, GdkEventFocus *event, gp
 			xyz[Vertex[k].i][Vertex[k].j].range = i;
 		UpdatePreview( true );
 	}
-	return FALSE;
+	return false;
 }
 
 static gint fix_rate_entryfocusout( GtkWidget *widget, GdkEventFocus *event, gpointer data ){
@@ -975,7 +975,7 @@ static gint fix_rate_entryfocusout( GtkWidget *widget, GdkEventFocus *event, gpo
 			xyz[Vertex[k].i][Vertex[k].j].rate = r;
 		UpdatePreview( true );
 	}
-	return FALSE;
+	return false;
 }
 
 static void fix_free( GtkWidget *widget, gpointer data ){
@@ -1049,12 +1049,12 @@ static void texture_hint( GtkToggleButton *check, gpointer data ){
 	AddHints = gtk_toggle_button_get_active( check );
 	if ( AddHints == 1 ) {
 		UseDetail = 1;
-		ENABLE_WIDGET( "detail", FALSE );
+		ENABLE_WIDGET( "detail", false );
 	}
 	else
 	{
 		UseDetail = WasDetail;
-		ENABLE_WIDGET( "detail", FALSE );
+		ENABLE_WIDGET( "detail", false );
 	}
 	CHECK_WIDGET( "detail", UseDetail );
 }
@@ -1070,7 +1070,7 @@ static void texture_set( int index, const char* name ){
 
 static gint texture_entryfocusout( GtkWidget* widget, GdkEventFocus* event, gpointer data ){
 	texture_set( GPOINTER_TO_INT( data ), gtk_entry_get_text( GTK_ENTRY( widget ) ) );
-	return FALSE;
+	return false;
 }
 
 // =============================================================================
@@ -1087,7 +1087,7 @@ static void UpdateVariable( GtkEntry *entry, GdkEventFocus *event, double *data 
 
 static gint doublevariable_entryfocusout( GtkWidget* widget, GdkEventFocus* event, gpointer data ){
 	UpdateVariable( GTK_ENTRY( widget ), event, reinterpret_cast<double*>( data ) );
-	return FALSE;
+	return false;
 }
 
 // =============================================================================
@@ -1274,20 +1274,20 @@ GtkWidget* create_main_dialog(){
 	//  g_signal_connect (G_OBJECT (dlg), "destroy", G_CALLBACK (gtk_widget_destroy), NULL);
 	gtk_window_set_transient_for( GTK_WINDOW( dlg ), GTK_WINDOW( g_pRadiantWnd ) );
 
-	hbox = gtk_hbox_new( FALSE, 5 );
+	hbox = gtk_hbox_new( false, 5 );
 	gtk_widget_show( hbox );
 	gtk_container_add( GTK_CONTAINER( dlg ), hbox );
 	gtk_container_set_border_width( GTK_CONTAINER( hbox ), 5 );
 
 	notebook = gtk_notebook_new();
 	gtk_widget_show( notebook );
-	gtk_box_pack_start( GTK_BOX( hbox ), notebook, TRUE, TRUE, 0 );
+	gtk_box_pack_start( GTK_BOX( hbox ), notebook, true, true, 0 );
 	g_signal_connect( G_OBJECT( notebook ), "switch_page",
 	                  G_CALLBACK( switch_page ), NULL );
 	gtk_notebook_set_tab_pos( GTK_NOTEBOOK( notebook ), GTK_POS_TOP );
 	g_object_set_data( G_OBJECT( dlg ), "notebook", notebook );
 
-	table = gtk_table_new( 2, 2, FALSE );
+	table = gtk_table_new( 2, 2, false );
 	gtk_widget_show( table );
 	gtk_container_set_border_width( GTK_CONTAINER( table ), 5 );
 	gtk_table_set_row_spacings( GTK_TABLE( table ), 5 );
@@ -1303,7 +1303,7 @@ GtkWidget* create_main_dialog(){
 	                  (GtkAttachOptions) ( GTK_EXPAND | GTK_FILL ),
 	                  (GtkAttachOptions) ( GTK_EXPAND | GTK_FILL ), 0, 0 );
 
-	vbox = gtk_vbox_new( TRUE, 5 );
+	vbox = gtk_vbox_new( true, 5 );
 	gtk_widget_show( vbox );
 	gtk_container_add( GTK_CONTAINER( frame ), vbox );
 	gtk_container_set_border_width( GTK_CONTAINER( vbox ), 5 );
@@ -1312,7 +1312,7 @@ GtkWidget* create_main_dialog(){
 	{
 		radio = gtk_radio_button_new_with_label_from_widget( GTK_RADIO_BUTTON( radio ), games[i] );
 		gtk_widget_show( radio );
-		gtk_box_pack_start( GTK_BOX( vbox ), radio, TRUE, TRUE, 0 );
+		gtk_box_pack_start( GTK_BOX( vbox ), radio, true, true, 0 );
 		game_radios[i] = radio;
 		g_signal_connect( G_OBJECT( radio ), "toggled", G_CALLBACK( general_game ), GINT_TO_POINTER( i ) );
 	}
@@ -1323,7 +1323,7 @@ GtkWidget* create_main_dialog(){
 	                  (GtkAttachOptions) ( GTK_EXPAND | GTK_FILL ),
 	                  (GtkAttachOptions) ( GTK_EXPAND | GTK_FILL ), 0, 0 );
 
-	vbox = gtk_vbox_new( TRUE, 5 );
+	vbox = gtk_vbox_new( true, 5 );
 	gtk_widget_show( vbox );
 	gtk_container_add( GTK_CONTAINER( frame ), vbox );
 	gtk_container_set_border_width( GTK_CONTAINER( vbox ), 5 );
@@ -1332,7 +1332,7 @@ GtkWidget* create_main_dialog(){
 	{
 		radio = gtk_radio_button_new_with_label_from_widget( GTK_RADIO_BUTTON( radio ), waveforms[i] );
 		gtk_widget_show( radio );
-		gtk_box_pack_start( GTK_BOX( vbox ), radio, TRUE, TRUE, 0 );
+		gtk_box_pack_start( GTK_BOX( vbox ), radio, true, true, 0 );
 		wave_radios[i] = radio;
 		g_signal_connect( G_OBJECT( radio ), "toggled", G_CALLBACK( general_wave ), GINT_TO_POINTER( i ) );
 	}
@@ -1343,7 +1343,7 @@ GtkWidget* create_main_dialog(){
 	                  (GtkAttachOptions) ( GTK_EXPAND | GTK_FILL ),
 	                  (GtkAttachOptions) ( GTK_EXPAND | GTK_FILL ), 0, 0 );
 
-	vbox = gtk_vbox_new( TRUE, 5 );
+	vbox = gtk_vbox_new( true, 5 );
 	gtk_widget_show( vbox );
 	gtk_container_add( GTK_CONTAINER( frame ), vbox );
 	gtk_container_set_border_width( GTK_CONTAINER( vbox ), 5 );
@@ -1352,12 +1352,12 @@ GtkWidget* create_main_dialog(){
 	{
 		radio = gtk_radio_button_new_with_label_from_widget( GTK_RADIO_BUTTON( radio ), orientations[i] );
 		gtk_widget_show( radio );
-		gtk_box_pack_start( GTK_BOX( vbox ), radio, TRUE, TRUE, 0 );
+		gtk_box_pack_start( GTK_BOX( vbox ), radio, true, true, 0 );
 		plane_radios[i] = radio;
 		g_signal_connect( G_OBJECT( radio ), "toggled", G_CALLBACK( general_plane ), GINT_TO_POINTER( i ) );
 	}
 
-	table2 = gtk_table_new( 4, 2, FALSE );
+	table2 = gtk_table_new( 4, 2, false );
 	gtk_widget_show( table2 );
 	gtk_table_set_row_spacings( GTK_TABLE( table2 ), 5 );
 	gtk_table_set_col_spacings( GTK_TABLE( table2 ), 5 );
@@ -1434,7 +1434,7 @@ GtkWidget* create_main_dialog(){
 	gtk_widget_set_size_request( spin, 60, -1 );
 	g_object_set_data( G_OBJECT( dlg ), "random", spin );
 
-	vbox = gtk_vbox_new( FALSE, 5 );
+	vbox = gtk_vbox_new( false, 5 );
 	gtk_widget_show( vbox );
 	gtk_container_set_border_width( GTK_CONTAINER( vbox ), 5 );
 
@@ -1442,15 +1442,15 @@ GtkWidget* create_main_dialog(){
 	gtk_widget_show( label );
 	gtk_notebook_append_page( GTK_NOTEBOOK( notebook ), vbox, label );
 
-	hbox2 = gtk_hbox_new( FALSE, 5 );
+	hbox2 = gtk_hbox_new( false, 5 );
 	gtk_widget_show( hbox2 );
-	gtk_box_pack_start( GTK_BOX( vbox ), hbox2, FALSE, TRUE, 0 );
+	gtk_box_pack_start( GTK_BOX( vbox ), hbox2, false, true, 0 );
 
 	frame = gtk_frame_new( "Extents" );
 	gtk_widget_show( frame );
-	gtk_box_pack_start( GTK_BOX( hbox2 ), frame, TRUE, TRUE, 0 );
+	gtk_box_pack_start( GTK_BOX( hbox2 ), frame, true, true, 0 );
 
-	table = gtk_table_new( 3, 4, FALSE );
+	table = gtk_table_new( 3, 4, false );
 	gtk_widget_show( table );
 	gtk_container_set_border_width( GTK_CONTAINER( table ), 5 );
 	gtk_container_add( GTK_CONTAINER( frame ), table );
@@ -1535,9 +1535,9 @@ GtkWidget* create_main_dialog(){
 
 	frame = gtk_frame_new( "Divisions" );
 	gtk_widget_show( frame );
-	gtk_box_pack_start( GTK_BOX( hbox2 ), frame, TRUE, TRUE, 0 );
+	gtk_box_pack_start( GTK_BOX( hbox2 ), frame, true, true, 0 );
 
-	table = gtk_table_new( 2, 2, FALSE );
+	table = gtk_table_new( 2, 2, false );
 	gtk_widget_show( table );
 	gtk_container_set_border_width( GTK_CONTAINER( table ), 5 );
 	gtk_container_add( GTK_CONTAINER( frame ), table );
@@ -1580,48 +1580,48 @@ GtkWidget* create_main_dialog(){
 
 	check = gtk_check_button_new_with_label( "Use Bezier patches" );
 	gtk_widget_show( check );
-	gtk_box_pack_start( GTK_BOX( vbox ), check, FALSE, TRUE, 0 );
+	gtk_box_pack_start( GTK_BOX( vbox ), check, false, true, 0 );
 	g_object_set_data( G_OBJECT( dlg ), "use_patches", check );
 	g_signal_connect( G_OBJECT( check ), "toggled", G_CALLBACK( extents_use_patches ), NULL );
 
 	// ^Fishman - Snap to grid, replaced scroll bar with a texbox.
 	label = gtk_label_new( "Snap to grid:" );
 	gtk_widget_show( label );
-	gtk_box_pack_start( GTK_BOX( vbox ), label, FALSE, TRUE, 0 );
+	gtk_box_pack_start( GTK_BOX( vbox ), label, false, true, 0 );
 	g_object_set_data( G_OBJECT( dlg ), "snap_text", label );
 
 	adj = gtk_adjustment_new( 8, 0, 256, 1, 10, 0 );
 	g_signal_connect( G_OBJECT( adj ), "value_changed", G_CALLBACK( extents_snaptogrid_spin ), &SP );
 	spin = gtk_spin_button_new( GTK_ADJUSTMENT( adj ), 1, 0 );
 	gtk_widget_show( spin );
-	gtk_box_pack_start( GTK_BOX( vbox ), spin, FALSE, TRUE, 0 );
+	gtk_box_pack_start( GTK_BOX( vbox ), spin, false, true, 0 );
 	gtk_widget_set_size_request( spin, 60, -1 );
 	g_object_set_data( G_OBJECT( dlg ), "sp", spin );
 	// ^Fishman - End of Snap to grid code.
 
-	hbox2 = gtk_hbox_new( FALSE, 5 );
+	hbox2 = gtk_hbox_new( false, 5 );
 	gtk_widget_show( hbox2 );
-	gtk_box_pack_start( GTK_BOX( vbox ), hbox2, FALSE, TRUE, 10 );
+	gtk_box_pack_start( GTK_BOX( vbox ), hbox2, false, true, 10 );
 
 	label = gtk_label_new( "Decimate:" );
 	gtk_widget_show( label );
-	gtk_box_pack_start( GTK_BOX( hbox2 ), label, FALSE, TRUE, 0 );
+	gtk_box_pack_start( GTK_BOX( hbox2 ), label, false, true, 0 );
 
 	adj = gtk_adjustment_new( 0, 0, 110, 1, 10, 0 );
 	g_signal_connect( G_OBJECT( adj ), "value_changed", G_CALLBACK( extents_decimate ), NULL );
 	g_object_set_data( G_OBJECT( dlg ), "decimate_adj", adj );
 	scale = gtk_hscale_new( GTK_ADJUSTMENT( adj ) );
 	gtk_widget_show( scale );
-	gtk_box_pack_start( GTK_BOX( hbox2 ), scale, TRUE, TRUE, 0 );
+	gtk_box_pack_start( GTK_BOX( hbox2 ), scale, true, true, 0 );
 	gtk_scale_set_value_pos( GTK_SCALE( scale ), GTK_POS_RIGHT );
 	gtk_scale_set_digits( GTK_SCALE( scale ), 0 );
 	g_object_set_data( G_OBJECT( dlg ), "decimate", scale );
 
 	frame = gtk_frame_new( "Corner values" );
 	gtk_widget_show( frame );
-	gtk_box_pack_start( GTK_BOX( vbox ), frame, FALSE, TRUE, 0 );
+	gtk_box_pack_start( GTK_BOX( vbox ), frame, false, true, 0 );
 
-	table = gtk_table_new( 3, 4, FALSE );
+	table = gtk_table_new( 3, 4, false );
 	gtk_widget_show( table );
 	gtk_container_set_border_width( GTK_CONTAINER( table ), 5 );
 	gtk_container_add( GTK_CONTAINER( frame ), table );
@@ -1696,7 +1696,7 @@ GtkWidget* create_main_dialog(){
 	g_object_set_data( G_OBJECT( dlg ), "linearborder", check );
 	g_signal_connect( G_OBJECT( check ), "toggled", G_CALLBACK( extents_linearborder ), NULL );
 
-	vbox = gtk_vbox_new( FALSE, 10 );
+	vbox = gtk_vbox_new( false, 10 );
 	gtk_widget_show( vbox );
 	gtk_container_set_border_width( GTK_CONTAINER( vbox ), 5 );
 
@@ -1706,13 +1706,13 @@ GtkWidget* create_main_dialog(){
 
 	label = gtk_label_new( "" );
 	gtk_widget_show( label );
-	gtk_box_pack_start( GTK_BOX( vbox ), label, FALSE, TRUE, 0 );
+	gtk_box_pack_start( GTK_BOX( vbox ), label, false, true, 0 );
 	g_object_set_data( G_OBJECT( dlg ), "bmp_note", label );
 
-	table = gtk_table_new( 2, 2, FALSE );
+	table = gtk_table_new( 2, 2, false );
 	gtk_widget_show( table );
 	gtk_container_set_border_width( GTK_CONTAINER( table ), 5 );
-	gtk_box_pack_start( GTK_BOX( vbox ), table, FALSE, TRUE, 0 );
+	gtk_box_pack_start( GTK_BOX( vbox ), table, false, true, 0 );
 	gtk_table_set_row_spacings( GTK_TABLE( table ), 5 );
 	gtk_table_set_col_spacings( GTK_TABLE( table ), 5 );
 
@@ -1731,7 +1731,7 @@ GtkWidget* create_main_dialog(){
 	g_object_set_data( G_OBJECT( dlg ), "bmp_file", entry );
 	g_signal_connect( G_OBJECT( entry ), "focus_out_event", G_CALLBACK( bitmap_file_entryfocusout ), NULL );
 
-	hbox2 = gtk_hbox_new( TRUE, 5 );
+	hbox2 = gtk_hbox_new( true, 5 );
 	gtk_widget_show( hbox2 );
 	gtk_table_attach( GTK_TABLE( table ), hbox2, 1, 2, 1, 2,
 	                  (GtkAttachOptions) ( 0 ),
@@ -1739,22 +1739,22 @@ GtkWidget* create_main_dialog(){
 
 	button = gtk_button_new_with_label( "Browse..." );
 	gtk_widget_show( button );
-	gtk_box_pack_start( GTK_BOX( hbox2 ), button, FALSE, FALSE, 0 );
+	gtk_box_pack_start( GTK_BOX( hbox2 ), button, false, false, 0 );
 	gtk_widget_set_size_request( button, 60, -1 );
 	g_object_set_data( G_OBJECT( dlg ), "bmp_file_browse", button );
 	g_signal_connect( G_OBJECT( button ), "clicked", G_CALLBACK( bitmap_browse ), NULL );
 
 	button = gtk_button_new_with_label( "Reload" );
 	gtk_widget_show( button );
-	gtk_box_pack_start( GTK_BOX( hbox2 ), button, FALSE, FALSE, 0 );
+	gtk_box_pack_start( GTK_BOX( hbox2 ), button, false, false, 0 );
 	gtk_widget_set_size_request( button, 60, -1 );
 	g_object_set_data( G_OBJECT( dlg ), "bmp_reload", button );
 	g_signal_connect( G_OBJECT( button ), "clicked", G_CALLBACK( bitmap_reload ), NULL );
 
-	table = gtk_table_new( 2, 2, TRUE );
+	table = gtk_table_new( 2, 2, true );
 	gtk_widget_show( table );
 	gtk_container_set_border_width( GTK_CONTAINER( table ), 5 );
-	gtk_box_pack_start( GTK_BOX( vbox ), table, FALSE, TRUE, 0 );
+	gtk_box_pack_start( GTK_BOX( vbox ), table, false, true, 0 );
 	gtk_table_set_row_spacings( GTK_TABLE( table ), 5 );
 	gtk_table_set_col_spacings( GTK_TABLE( table ), 5 );
 
@@ -1776,7 +1776,7 @@ GtkWidget* create_main_dialog(){
 	gtk_misc_set_alignment( GTK_MISC( label ), 1, 0.5 );
 	gtk_label_set_justify( GTK_LABEL( label ), GTK_JUSTIFY_RIGHT );
 
-	hbox2 = gtk_hbox_new( FALSE, 5 );
+	hbox2 = gtk_hbox_new( false, 5 );
 	gtk_widget_show( hbox2 );
 	gtk_table_attach( GTK_TABLE( table ), hbox2, 1, 2, 0, 1,
 	                  (GtkAttachOptions) ( GTK_EXPAND | GTK_FILL ),
@@ -1784,12 +1784,12 @@ GtkWidget* create_main_dialog(){
 
 	entry = gtk_entry_new();
 	gtk_widget_show( entry );
-	gtk_box_pack_start( GTK_BOX( hbox2 ), entry, FALSE, FALSE, 0 );
+	gtk_box_pack_start( GTK_BOX( hbox2 ), entry, false, false, 0 );
 	gtk_widget_set_size_request( entry, 50, -1 );
 	g_object_set_data( G_OBJECT( dlg ), "bmp_black", entry );
 	g_signal_connect( G_OBJECT( entry ), "focus_out_event", G_CALLBACK( doublevariable_entryfocusout ), &gbmp.black_value );
 
-	hbox2 = gtk_hbox_new( FALSE, 5 );
+	hbox2 = gtk_hbox_new( false, 5 );
 	gtk_widget_show( hbox2 );
 	gtk_table_attach( GTK_TABLE( table ), hbox2, 1, 2, 1, 2,
 	                  (GtkAttachOptions) ( GTK_EXPAND | GTK_FILL ),
@@ -1797,12 +1797,12 @@ GtkWidget* create_main_dialog(){
 
 	entry = gtk_entry_new();
 	gtk_widget_show( entry );
-	gtk_box_pack_start( GTK_BOX( hbox2 ), entry, FALSE, FALSE, 0 );
+	gtk_box_pack_start( GTK_BOX( hbox2 ), entry, false, false, 0 );
 	gtk_widget_set_size_request( entry, 50, -1 );
 	g_object_set_data( G_OBJECT( dlg ), "bmp_white", entry );
 	g_signal_connect( G_OBJECT( entry ), "focus_out_event", G_CALLBACK( doublevariable_entryfocusout ), &gbmp.white_value );
 
-	vbox = gtk_vbox_new( FALSE, 10 );
+	vbox = gtk_vbox_new( false, 10 );
 	gtk_widget_show( vbox );
 	gtk_container_set_border_width( GTK_CONTAINER( vbox ), 5 );
 
@@ -1817,12 +1817,12 @@ GtkWidget* create_main_dialog(){
 	                       "Click \"Free\" to unlock a vertex. Vertices within \"Range\n"
 	                       "affected\" will be influenced by this vertex." );
 	gtk_widget_show( label );
-	gtk_box_pack_start( GTK_BOX( vbox ), label, FALSE, TRUE, 0 );
+	gtk_box_pack_start( GTK_BOX( vbox ), label, false, true, 0 );
 
-	table = gtk_table_new( 3, 3, FALSE );
+	table = gtk_table_new( 3, 3, false );
 	gtk_widget_show( table );
 	gtk_container_set_border_width( GTK_CONTAINER( table ), 5 );
-	gtk_box_pack_start( GTK_BOX( vbox ), table, FALSE, TRUE, 0 );
+	gtk_box_pack_start( GTK_BOX( vbox ), table, false, true, 0 );
 	gtk_table_set_row_spacings( GTK_TABLE( table ), 5 );
 	gtk_table_set_col_spacings( GTK_TABLE( table ), 5 );
 
@@ -1897,7 +1897,7 @@ GtkWidget* create_main_dialog(){
 	g_object_set_data( G_OBJECT( dlg ), "fix_freeall", button );
 	g_signal_connect( G_OBJECT( button ), "clicked", G_CALLBACK( fix_freeall ), NULL );
 
-	vbox = gtk_vbox_new( FALSE, 10 );
+	vbox = gtk_vbox_new( false, 10 );
 	gtk_widget_show( vbox );
 	gtk_container_set_border_width( GTK_CONTAINER( vbox ), 5 );
 
@@ -1906,9 +1906,9 @@ GtkWidget* create_main_dialog(){
 	gtk_notebook_append_page( GTK_NOTEBOOK( notebook ), vbox, label );
 
 	// ^Fishman - Modified to add more labels and textboxes.
-	table = gtk_table_new( 5, 2, FALSE );
+	table = gtk_table_new( 5, 2, false );
 	gtk_widget_show( table );
-	gtk_box_pack_start( GTK_BOX( vbox ), table, FALSE, TRUE, 0 );
+	gtk_box_pack_start( GTK_BOX( vbox ), table, false, true, 0 );
 	gtk_table_set_row_spacings( GTK_TABLE( table ), 5 );
 	gtk_table_set_col_spacings( GTK_TABLE( table ), 5 );
 
@@ -1959,23 +1959,23 @@ GtkWidget* create_main_dialog(){
 	gtk_widget_set_size_request( entry, 60, -1 );
 	g_object_set_data( G_OBJECT( dlg ), "texture3", entry );
 
-	hbox2 = gtk_hbox_new( FALSE, 5 );
+	hbox2 = gtk_hbox_new( false, 5 );
 	gtk_widget_show( hbox2 );
-	gtk_box_pack_start( GTK_BOX( vbox ), hbox2, FALSE, TRUE, 0 );
+	gtk_box_pack_start( GTK_BOX( vbox ), hbox2, false, true, 0 );
 
 	label = gtk_label_new( "\"Steep\" angle:" );
 	gtk_widget_show( label );
-	gtk_box_pack_start( GTK_BOX( hbox2 ), label, FALSE, TRUE, 0 );
+	gtk_box_pack_start( GTK_BOX( hbox2 ), label, false, true, 0 );
 
 	adj = gtk_adjustment_new( 60, 0, 90, 1, 10, 0 );
 	spin = gtk_spin_button_new( GTK_ADJUSTMENT( adj ), 1, 0 );
 	gtk_widget_show( spin );
-	gtk_box_pack_start( GTK_BOX( hbox2 ), spin, FALSE, TRUE, 0 );
+	gtk_box_pack_start( GTK_BOX( hbox2 ), spin, false, true, 0 );
 	g_object_set_data( G_OBJECT( dlg ), "tex_slant", spin );
 
-	table = gtk_table_new( 2, 4, TRUE );
+	table = gtk_table_new( 2, 4, true );
 	gtk_widget_show( table );
-	gtk_box_pack_start( GTK_BOX( vbox ), table, FALSE, TRUE, 0 );
+	gtk_box_pack_start( GTK_BOX( vbox ), table, false, true, 0 );
 	gtk_table_set_row_spacings( GTK_TABLE( table ), 5 );
 	gtk_table_set_col_spacings( GTK_TABLE( table ), 5 );
 
@@ -2027,71 +2027,71 @@ GtkWidget* create_main_dialog(){
 
 	check = gtk_check_button_new_with_label( "Use detail brushes" );
 	gtk_widget_show( check );
-	gtk_box_pack_start( GTK_BOX( vbox ), check, FALSE, TRUE, 0 );
+	gtk_box_pack_start( GTK_BOX( vbox ), check, false, true, 0 );
 	g_object_set_data( G_OBJECT( dlg ), "detail", check );
 	g_signal_connect( G_OBJECT( check ), "toggled", G_CALLBACK( texture_detail ), NULL );
 
 	check = gtk_check_button_new_with_label( "Detail hint brushes" );
 	gtk_widget_show( check );
-	gtk_box_pack_start( GTK_BOX( vbox ), check, FALSE, TRUE, 0 );
+	gtk_box_pack_start( GTK_BOX( vbox ), check, false, true, 0 );
 	g_object_set_data( G_OBJECT( dlg ), "hint", check );
 	g_signal_connect( G_OBJECT( check ), "toggled", G_CALLBACK( texture_hint ), NULL );
 
 	// ^Fishman - Add terrain key to func_group.
 	check = gtk_check_button_new_with_label( "Add terrain key" );
 	gtk_widget_show( check );
-	gtk_box_pack_start( GTK_BOX( vbox ), check, FALSE, TRUE, 0 );
+	gtk_box_pack_start( GTK_BOX( vbox ), check, false, true, 0 );
 	g_object_set_data( G_OBJECT( dlg ), "terrain_ent", check );
 	g_signal_connect( G_OBJECT( check ), "toggled", G_CALLBACK( texture_terrainent ), NULL );
 
-	vbox = gtk_vbox_new( FALSE, 5 );
+	vbox = gtk_vbox_new( false, 5 );
 	gtk_widget_show( vbox );
-	gtk_box_pack_start( GTK_BOX( hbox ), vbox, FALSE, TRUE, 0 );
+	gtk_box_pack_start( GTK_BOX( hbox ), vbox, false, true, 0 );
 
 	button = gtk_button_new_with_label( "OK" );
 	gtk_widget_show( button );
-	gtk_box_pack_start( GTK_BOX( vbox ), button, FALSE, TRUE, 0 );
+	gtk_box_pack_start( GTK_BOX( vbox ), button, false, true, 0 );
 	gtk_widget_set_size_request( button, 60, -1 );
 	g_object_set_data( G_OBJECT( dlg ), "go", button );
 	g_signal_connect( G_OBJECT( button ), "clicked", G_CALLBACK( main_go ), NULL );
 
 	label = gtk_label_new( "Settings:" );
 	gtk_widget_show( label );
-	gtk_box_pack_start( GTK_BOX( vbox ), label, FALSE, TRUE, 0 );
+	gtk_box_pack_start( GTK_BOX( vbox ), label, false, true, 0 );
 
 	button = gtk_button_new_with_label( "Open..." );
 	gtk_widget_show( button );
-	gtk_box_pack_start( GTK_BOX( vbox ), button, FALSE, TRUE, 0 );
+	gtk_box_pack_start( GTK_BOX( vbox ), button, false, true, 0 );
 	g_object_set_data( G_OBJECT( dlg ), "open", button );
 	g_signal_connect( G_OBJECT( button ), "clicked", G_CALLBACK( main_open ), NULL );
 
 	button = gtk_button_new_with_label( "Save as..." );
 	gtk_widget_show( button );
-	gtk_box_pack_start( GTK_BOX( vbox ), button, FALSE, TRUE, 0 );
+	gtk_box_pack_start( GTK_BOX( vbox ), button, false, true, 0 );
 	g_object_set_data( G_OBJECT( dlg ), "save", button );
 	g_signal_connect( G_OBJECT( button ), "clicked", G_CALLBACK( main_save ), NULL );
 
 	button = gtk_button_new_with_label( "Defaults" );
 	gtk_widget_show( button );
-	gtk_box_pack_start( GTK_BOX( vbox ), button, FALSE, TRUE, 0 );
+	gtk_box_pack_start( GTK_BOX( vbox ), button, false, true, 0 );
 	g_object_set_data( G_OBJECT( dlg ), "defaults", button );
 	g_signal_connect( G_OBJECT( button ), "clicked", G_CALLBACK( main_defaults ), NULL );
 
 	button = gtk_button_new_with_label( "About..." );
 	gtk_widget_show( button );
-	gtk_box_pack_start( GTK_BOX( vbox ), button, FALSE, TRUE, 0 );
+	gtk_box_pack_start( GTK_BOX( vbox ), button, false, true, 0 );
 	g_signal_connect( G_OBJECT( button ), "clicked", G_CALLBACK( main_about ), NULL );
 
 	check = gtk_check_button_new_with_label( "Preview" );
 	gtk_widget_show( check );
-	gtk_box_pack_start( GTK_BOX( vbox ), check, FALSE, TRUE, 0 );
+	gtk_box_pack_start( GTK_BOX( vbox ), check, false, true, 0 );
 	g_signal_connect( G_OBJECT( check ), "toggled", G_CALLBACK( main_preview ), NULL );
 	g_object_set_data( G_OBJECT( dlg ), "main_preview", check );
 
 	// ^Fishman - Antializing for the preview window.
 	check = gtk_check_button_new_with_label( "Antialised lines" );
 	gtk_widget_show( check );
-	gtk_box_pack_start( GTK_BOX( vbox ), check, FALSE, TRUE, 0 );
+	gtk_box_pack_start( GTK_BOX( vbox ), check, false, true, 0 );
 	g_object_set_data( G_OBJECT( dlg ), "main_antialiasing", check );
 	g_signal_connect( G_OBJECT( check ), "toggled", G_CALLBACK( main_antialiasing ), NULL );
 
@@ -2161,7 +2161,7 @@ qboolean CALLBACK AboutDlgProc( HWND hwnd, unsigned msg, UINT wparam, LONG lpara
 		SetWindowPos( hwndURL,(HWND)NULL,0,0,size.cx,size.cy + 2,
 		              SWP_NOMOVE | SWP_NOZORDER );
 
-		return TRUE;
+		return true;
 
 	case WM_COMMAND:
 		switch ( LOWORD( wparam ) )
@@ -2174,7 +2174,7 @@ qboolean CALLBACK AboutDlgProc( HWND hwnd, unsigned msg, UINT wparam, LONG lpara
 			break;
 		case IDOK:
 			EndDialog( hwnd,1 );
-			return TRUE;
+			return true;
 		}
 		break;
 
@@ -2209,12 +2209,12 @@ qboolean CALLBACK AboutDlgProc( HWND hwnd, unsigned msg, UINT wparam, LONG lpara
 
 	case WM_CLOSE:
 		EndDialog( hwnd,1 );
-		return TRUE;
+		return true;
 
 	default:
-		return FALSE;
+		return false;
 	}
-	return FALSE;
+	return false;
 
 } /* AboutDlgProc */
 
