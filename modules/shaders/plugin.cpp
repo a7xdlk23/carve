@@ -174,6 +174,37 @@ ShadersSourceModule g_ShadersSourceModule;
 #endif
 
 
+class ShadersNuclideAPI
+{
+	ShaderSystem* m_shadersnuclide;
+public:
+	typedef ShaderSystem Type;
+	STRING_CONSTANT( Name, "nuclide" );
+
+	ShadersNuclideAPI( ShadersDependencies& dependencies ){
+		g_shadersExtension = "mat";
+		g_shadersDirectory = "textures/";
+		g_texturePrefix = "textures/";
+		g_enableDefaultShaders = false;
+		g_shaderLanguage = SHADERLANGUAGE_DOOM3;
+		g_useShaderList = false;
+		g_bitmapModule = dependencies.getBitmapModule().getTable();
+		Shaders_Construct();
+		m_shadersnuclide = &GetShaderSystem();
+	}
+	~ShadersNuclideAPI(){
+		Shaders_Destroy();
+	}
+	ShaderSystem* getTable(){
+		return m_shadersnuclide;
+	}
+};
+
+typedef SingletonModule<ShadersNuclideAPI, ShadersDependencies, DependenciesAPIConstructor<ShadersNuclideAPI, ShadersDependencies> > ShadersNuclideModule;
+
+ShadersNuclideModule g_ShadersNuclideModule;
+
+
 extern "C" void RADIANT_DLLEXPORT Radiant_RegisterModules( ModuleServer& server ){
 	initialiseModule( server );
 
@@ -183,4 +214,5 @@ extern "C" void RADIANT_DLLEXPORT Radiant_RegisterModules( ModuleServer& server 
 #ifndef NO_SOURCEVMT
 	g_ShadersSourceModule.selfRegister();
 #endif
+	g_ShadersNuclideModule.selfRegister();
 }
