@@ -86,10 +86,10 @@ public:
 	scene::Node& parsePrimitive( Tokeniser& tokeniser ) const override {
 		const char* primitive = tokeniser.getToken();
 		if ( primitive != 0 ) {
-			if ( string_equal( primitive, "patchDef3" ) ) {
+			if ( string_equal( primitive, "patchDef3" ) || string_equal( primitive, "patchDef3WS" ) ) {
 				return m_dependencies.getPatchDoom3().createPatch();
 			}
-			else if ( string_equal( primitive, "patchDef2" ) ) {
+			else if ( string_equal( primitive, "patchDef2" ) || string_equal( primitive, "patchDef2WS" ) ) {
 				return m_dependencies.getPatchDef2Doom3().createPatch();
 			}
 			else if ( string_equal( primitive, "brushDef3" ) ) {
@@ -157,10 +157,10 @@ public:
 	scene::Node& parsePrimitive( Tokeniser& tokeniser ) const override {
 		const char* primitive = tokeniser.getToken();
 		if ( primitive != 0 ) {
-			if ( string_equal( primitive, "patchDef3" ) ) {
+			if ( string_equal( primitive, "patchDef3" ) || string_equal( primitive, "patchDef3WS" ) ) {
 				return m_dependencies.getPatchDoom3().createPatch();
 			}
-			else if ( string_equal( primitive, "patchDef2" ) ) {
+			else if ( string_equal( primitive, "patchDef2" ) || string_equal( primitive, "patchDef2WS" ) ) {
 				return m_dependencies.getPatchDef2Doom3().createPatch();
 			}
 			else if ( string_equal( primitive, "brushDef3" ) ) {
@@ -245,7 +245,7 @@ public:
 	scene::Node& parsePrimitive( Tokeniser& tokeniser ) const override {
 		const char* primitive = tokeniser.getToken();
 		if ( primitive != 0 ) {
-			if ( string_equal( primitive, "patchDef2" ) ) {
+			if ( string_equal( primitive, "patchDef2" ) || string_equal( primitive, "patchDef2WS" ) ) {
 				return GlobalPatchModule::getTable().createPatch();
 			}
 			if( !m_formatDetected ){
