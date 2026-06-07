@@ -11,3 +11,4 @@
 /untracked*/
 CMakeUserPresets.json
 /cmake/gamepacks/user.cmake
+/doxygen-out/
