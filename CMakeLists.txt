@@ -22,6 +22,7 @@ option(RADIANT_SUPPORT_SOURCE "Support Source Engine formats" ON)
 option(RADIANT_SUPPORT_GOLDSRC "Generate GoldSrc engine gamepacks" ON)
 option(RADIANT_BUILD_MBSPC "Build mbspc" ON)
 cmake_dependent_option(RADIANT_BUILD_Q3MAP2 "Build q3map2" ON RADIANT_USE_ASSIMP OFF)
+option(RADIANT_BUILD_Q2MAP "Build q2map" ON)
 
 set(RADIANT_VERSION ${PROJECT_VERSION})
 set(RADIANT_MAJOR_VERSION ${PROJECT_VERSION_MAJOR})
@@ -435,6 +436,12 @@ endif()
 
 if(RADIANT_BUILD_MBSPC)
 	include(mbspc)
+endif()
+
+# q2map
+
+if(RADIANT_BUILD_Q2MAP)
+	include(q2map)
 endif()
 
 # modules
