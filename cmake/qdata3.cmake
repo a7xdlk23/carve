@@ -21,7 +21,7 @@ add_executable(qdata3
 	${PROJECT_SOURCE_DIR}/tools/quake2/qdata/tables.c
 	${PROJECT_SOURCE_DIR}/tools/quake2/qdata/video.c
 )
-target_link_libraries(qdata3 PRIVATE l_net)
+target_link_libraries(qdata3 PRIVATE l_net $<$<BOOL:${WIN32}>:ws2_32>)
 target_link_libraries(qdata3 PRIVATE LibXml2::LibXml2)
 target_include_directories(qdata3 PRIVATE
 	${PROJECT_SOURCE_DIR}/tools/quake2/common

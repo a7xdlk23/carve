@@ -35,7 +35,7 @@ add_executable(q2map
 	${PROJECT_SOURCE_DIR}/tools/quake2/q2map/tree.c
 	${PROJECT_SOURCE_DIR}/tools/quake2/q2map/writebsp.c
 )
-target_link_libraries(q2map PRIVATE l_net)
+target_link_libraries(q2map PRIVATE l_net $<$<BOOL:${WIN32}>:ws2_32>)
 target_link_libraries(q2map PRIVATE LibXml2::LibXml2)
 target_include_directories(q2map PRIVATE
 	${PROJECT_SOURCE_DIR}/tools/quake2/common
