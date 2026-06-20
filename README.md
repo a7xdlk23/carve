@@ -116,6 +116,9 @@ should be considered **!!EXPERIMENTAL!!**
 - Add system-wide search paths for additional gamepacks on all platforms
 - Remove the version checking stuff with the `RADIANT_MAJOR`/ `RADIANT_MINOR` files
 - Move asset loading to a thread so it doesn't lock up the whole program when loading a big map
+- Project manager window
+- Gamepack editor window
+- Embed Surface Dialog window in Textures group panel
 
 ### Random feature highlights
 
