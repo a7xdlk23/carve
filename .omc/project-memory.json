@@ -1,0 +1,475 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1781960682907,
+  "projectRoot": "C:\\Users\\a\\Documents\\Carve",
+  "techStack": {
+    "languages": [
+      {
+        "name": "C/C++",
+        "version": null,
+        "confidence": "high",
+        "markers": [
+          "CMakeLists.txt"
+        ]
+      }
+    ],
+    "frameworks": [],
+    "packageManager": null,
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": null,
+    "testCommand": null,
+    "lintCommand": null,
+    "devCommand": null,
+    "scripts": {}
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": null
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [
+      "docs"
+    ],
+    "gitBranches": {
+      "defaultBranch": "main",
+      "branchingStrategy": null
+    }
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "cmake": {
+      "path": "cmake",
+      "purpose": null,
+      "fileCount": 11,
+      "lastAccessed": 1781960682884,
+      "keyFiles": [
+        "default_build_menu_goldsrc_ericwtools.xml",
+        "default_build_menu_source.xml",
+        "FindMath.cmake",
+        "gamepacks.cmake",
+        "h2data.cmake"
+      ]
+    },
+    "docs": {
+      "path": "docs",
+      "purpose": "Documentation",
+      "fileCount": 1,
+      "lastAccessed": 1781960682884,
+      "keyFiles": [
+        "mouse shortcuts.txt"
+      ]
+    },
+    "include": {
+      "path": "include",
+      "purpose": null,
+      "fileCount": 44,
+      "lastAccessed": 1781960682885,
+      "keyFiles": [
+        "aboutmsg.h",
+        "cullable.h",
+        "editable.h",
+        "iarchive.h",
+        "ibrush.h"
+      ]
+    },
+    "libs": {
+      "path": "libs",
+      "purpose": null,
+      "fileCount": 36,
+      "lastAccessed": 1781960682885,
+      "keyFiles": [
+        "archivelib.h",
+        "bytebool.h",
+        "bytestreamutils.h",
+        "character.h",
+        "commandlib.cpp"
+      ]
+    },
+    "modules": {
+      "path": "modules",
+      "purpose": null,
+      "fileCount": 0,
+      "lastAccessed": 1781960682886,
+      "keyFiles": []
+    },
+    "old": {
+      "path": "old",
+      "purpose": null,
+      "fileCount": 35,
+      "lastAccessed": 1781960682886,
+      "keyFiles": [
+        "appimage.sh",
+        "branch-manager",
+        "ChangeLog",
+        "ChangeLog.idsoftware",
+        "COMPILING"
+      ]
+    },
+    "plugins": {
+      "path": "plugins",
+      "purpose": null,
+      "fileCount": 0,
+      "lastAccessed": 1781960682887,
+      "keyFiles": []
+    },
+    "radiant": {
+      "path": "radiant",
+      "purpose": null,
+      "fileCount": 175,
+      "lastAccessed": 1781960682888,
+      "keyFiles": [
+        "autosave.cpp",
+        "autosave.h",
+        "brush.cpp",
+        "brush.h",
+        "brushmanip.cpp"
+      ]
+    },
+    "regression_tests": {
+      "path": "regression_tests",
+      "purpose": null,
+      "fileCount": 0,
+      "lastAccessed": 1781960682888,
+      "keyFiles": []
+    },
+    "resources": {
+      "path": "resources",
+      "purpose": null,
+      "fileCount": 1,
+      "lastAccessed": 1781960682888,
+      "keyFiles": [
+        "global.xlink"
+      ]
+    },
+    "setup": {
+      "path": "setup",
+      "purpose": null,
+      "fileCount": 0,
+      "lastAccessed": 1781960682889,
+      "keyFiles": []
+    },
+    "tools": {
+      "path": "tools",
+      "purpose": null,
+      "fileCount": 0,
+      "lastAccessed": 1781960682889,
+      "keyFiles": []
+    },
+    "setup\\data": {
+      "path": "setup\\data",
+      "purpose": "Data files",
+      "fileCount": 0,
+      "lastAccessed": 1781960682894,
+      "keyFiles": []
+    }
+  },
+  "hotPaths": [
+    {
+      "path": "CMakeLists.txt",
+      "accessCount": 21,
+      "lastAccessed": 1782037319660,
+      "type": "file"
+    },
+    {
+      "path": "radiant\\main.cpp",
+      "accessCount": 17,
+      "lastAccessed": 1781979438668,
+      "type": "file"
+    },
+    {
+      "path": "radiant\\mainframe.cpp",
+      "accessCount": 10,
+      "lastAccessed": 1781998313273,
+      "type": "file"
+    },
+    {
+      "path": "AGENTS.md",
+      "accessCount": 5,
+      "lastAccessed": 1781980305843,
+      "type": "file"
+    },
+    {
+      "path": "cmake\\gamepacks.cmake",
+      "accessCount": 5,
+      "lastAccessed": 1782037216147,
+      "type": "file"
+    },
+    {
+      "path": "cmake\\modules.cmake",
+      "accessCount": 4,
+      "lastAccessed": 1781997438887,
+      "type": "file"
+    },
+    {
+      "path": "modules\\AGENTS.md",
+      "accessCount": 4,
+      "lastAccessed": 1781997442340,
+      "type": "file"
+    },
+    {
+      "path": "radiant\\mainframe.h",
+      "accessCount": 3,
+      "lastAccessed": 1781962831007,
+      "type": "directory"
+    },
+    {
+      "path": "README.md",
+      "accessCount": 3,
+      "lastAccessed": 1781963735890,
+      "type": "file"
+    },
+    {
+      "path": "cmake\\plugins.cmake",
+      "accessCount": 3,
+      "lastAccessed": 1781979975546,
+      "type": "file"
+    },
+    {
+      "path": "cmake\\q3map2.cmake",
+      "accessCount": 2,
+      "lastAccessed": 1781961255105,
+      "type": "file"
+    },
+    {
+      "path": "cmake\\mbspc.cmake",
+      "accessCount": 2,
+      "lastAccessed": 1781961255598,
+      "type": "file"
+    },
+    {
+      "path": "cmake\\q2map.cmake",
+      "accessCount": 2,
+      "lastAccessed": 1781961256102,
+      "type": "file"
+    },
+    {
+      "path": "plugins\\gtkgensurf\\plugin.cpp",
+      "accessCount": 2,
+      "lastAccessed": 1781962834188,
+      "type": "file"
+    },
+    {
+      "path": "plugins\\AGENTS.md",
+      "accessCount": 2,
+      "lastAccessed": 1781980286769,
+      "type": "file"
+    },
+    {
+      "path": "cmake\\AGENTS.md",
+      "accessCount": 2,
+      "lastAccessed": 1781980300912,
+      "type": "file"
+    },
+    {
+      "path": "include\\iplugin.h",
+      "accessCount": 1,
+      "lastAccessed": 1781960946645,
+      "type": "file"
+    },
+    {
+      "path": "include\\modulesystem.h",
+      "accessCount": 1,
+      "lastAccessed": 1781960948830,
+      "type": "file"
+    },
+    {
+      "path": "radiant\\scenegraph.h",
+      "accessCount": 1,
+      "lastAccessed": 1781960956221,
+      "type": "file"
+    },
+    {
+      "path": "plugins\\bobtoolz\\bobToolz.h",
+      "accessCount": 1,
+      "lastAccessed": 1781960966878,
+      "type": "file"
+    },
+    {
+      "path": "plugins\\hydratoolz\\plugin.h",
+      "accessCount": 1,
+      "lastAccessed": 1781960967209,
+      "type": "file"
+    },
+    {
+      "path": "plugins\\meshtex\\PluginModule.h",
+      "accessCount": 1,
+      "lastAccessed": 1781960967922,
+      "type": "file"
+    },
+    {
+      "path": "plugins\\prtview\\prtview.h",
+      "accessCount": 1,
+      "lastAccessed": 1781960968099,
+      "type": "file"
+    },
+    {
+      "path": "plugins\\sunplug\\sunplug.h",
+      "accessCount": 1,
+      "lastAccessed": 1781960968242,
+      "type": "file"
+    },
+    {
+      "path": "plugins\\camera\\camera.h",
+      "accessCount": 1,
+      "lastAccessed": 1781960968265,
+      "type": "file"
+    },
+    {
+      "path": "libs\\commandlib.h",
+      "accessCount": 1,
+      "lastAccessed": 1781960979468,
+      "type": "file"
+    },
+    {
+      "path": "plugins\\gtkgensurf",
+      "accessCount": 1,
+      "lastAccessed": 1781960995543,
+      "type": "directory"
+    },
+    {
+      "path": "plugins\\bkgrnd2d\\bkgrnd2d.h",
+      "accessCount": 1,
+      "lastAccessed": 1781960995916,
+      "type": "directory"
+    },
+    {
+      "path": "plugins\\gtkgensurf\\gensurf.h",
+      "accessCount": 1,
+      "lastAccessed": 1781960996366,
+      "type": "file"
+    },
+    {
+      "path": "plugins\\brushexport\\export.h",
+      "accessCount": 1,
+      "lastAccessed": 1781960996495,
+      "type": "file"
+    },
+    {
+      "path": "plugins\\ufoaiplug\\ufoai.h",
+      "accessCount": 1,
+      "lastAccessed": 1781961004904,
+      "type": "file"
+    },
+    {
+      "path": "plugins\\shaderplug\\shaderplug.cpp",
+      "accessCount": 1,
+      "lastAccessed": 1781961005041,
+      "type": "file"
+    },
+    {
+      "path": "plugins\\hydratoolz\\plugin.cpp",
+      "accessCount": 1,
+      "lastAccessed": 1781961007552,
+      "type": "file"
+    },
+    {
+      "path": "tools\\quake3\\q3map2\\main.cpp",
+      "accessCount": 1,
+      "lastAccessed": 1781961008002,
+      "type": "file"
+    },
+    {
+      "path": "plugins\\bobtoolz\\bobToolz-GTK.h",
+      "accessCount": 1,
+      "lastAccessed": 1781961014071,
+      "type": "file"
+    },
+    {
+      "path": "plugins\\meshtex\\PluginProperties.h",
+      "accessCount": 1,
+      "lastAccessed": 1781961014237,
+      "type": "file"
+    },
+    {
+      "path": "cmake\\qdata3.cmake",
+      "accessCount": 1,
+      "lastAccessed": 1781961256517,
+      "type": "file"
+    },
+    {
+      "path": "cmake\\h2data.cmake",
+      "accessCount": 1,
+      "lastAccessed": 1781961257432,
+      "type": "file"
+    },
+    {
+      "path": "include\\AGENTS.md",
+      "accessCount": 1,
+      "lastAccessed": 1781961438046,
+      "type": "file"
+    },
+    {
+      "path": "radiant\\AGENTS.md",
+      "accessCount": 1,
+      "lastAccessed": 1781961475435,
+      "type": "file"
+    },
+    {
+      "path": "libs\\AGENTS.md",
+      "accessCount": 1,
+      "lastAccessed": 1781961529824,
+      "type": "file"
+    },
+    {
+      "path": "tools\\AGENTS.md",
+      "accessCount": 1,
+      "lastAccessed": 1781961597672,
+      "type": "file"
+    },
+    {
+      "path": "docs\\AGENTS.md",
+      "accessCount": 1,
+      "lastAccessed": 1781961633240,
+      "type": "file"
+    },
+    {
+      "path": "resources\\AGENTS.md",
+      "accessCount": 1,
+      "lastAccessed": 1781961643773,
+      "type": "file"
+    },
+    {
+      "path": "setup\\AGENTS.md",
+      "accessCount": 1,
+      "lastAccessed": 1781961655471,
+      "type": "file"
+    },
+    {
+      "path": "regression_tests\\AGENTS.md",
+      "accessCount": 1,
+      "lastAccessed": 1781961667098,
+      "type": "file"
+    },
+    {
+      "path": "old\\AGENTS.md",
+      "accessCount": 1,
+      "lastAccessed": 1781961681316,
+      "type": "file"
+    },
+    {
+      "path": "libs\\container\\AGENTS.md",
+      "accessCount": 1,
+      "lastAccessed": 1781961700823,
+      "type": "file"
+    },
+    {
+      "path": "libs\\generic\\AGENTS.md",
+      "accessCount": 1,
+      "lastAccessed": 1781961707768,
+      "type": "file"
+    },
+    {
+      "path": "libs\\math\\AGENTS.md",
+      "accessCount": 1,
+      "lastAccessed": 1781961714393,
+      "type": "file"
+    }
+  ],
+  "userDirectives": []
+}

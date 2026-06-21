@@ -1759,6 +1759,10 @@ protected:
 };
 
 
+// File-scope helper so it has linkage when used as a non-type template argument below
+// (a function-local lambda has no linkage, which GCC rejects).
+static void TextureBrowser_popupViewMenu( QMenu *menu ){ menu->popup( QCursor::pos() ); }
+
 QWidget* TextureBrowser_constructWindow( QWidget* toplevel ){
 	TextureBrowser_checkTagFile();
 	TextureBrowser_SetNotex();
@@ -1793,7 +1797,7 @@ QWidget* TextureBrowser_constructWindow( QWidget* toplevel ){
 		menu_view->setParent( toolbar, menu_view->windowFlags() ); //don't reset windowFlags
 
 		//view menu button
-		toolbar_append_button( toolbar, "View", "texbro_view.png", PointerCaller<QMenu, void(), +[]( QMenu *menu ){ menu->popup( QCursor::pos() ); }>( menu_view ) );
+		toolbar_append_button( toolbar, "View", "texbro_view.png", PointerCaller<QMenu, void(), TextureBrowser_popupViewMenu>( menu_view ) );
 
 		toolbar_append_button( toolbar, "Find / Replace...", "texbro_find-replace.png", "FindReplaceTextures" );
 

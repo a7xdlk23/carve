@@ -70,15 +70,6 @@ add_plugin(sunplug
 )
 target_link_libraries(sunplug PRIVATE Qt6::Core Qt6::Gui Qt6::Widgets Qt6::Svg Qt6::OpenGL Qt6::OpenGLWidgets)
 
-add_plugin(ufoaiplug
-	SOURCES
-		${PROJECT_SOURCE_DIR}/plugins/ufoaiplug/ufoai_filters.cpp
-		${PROJECT_SOURCE_DIR}/plugins/ufoaiplug/ufoai_gtk.cpp
-		${PROJECT_SOURCE_DIR}/plugins/ufoaiplug/ufoai_level.cpp
-		${PROJECT_SOURCE_DIR}/plugins/ufoaiplug/ufoai.cpp
-)
-target_link_libraries(ufoaiplug PRIVATE Qt6::Core Qt6::Gui Qt6::Widgets Qt6::Svg Qt6::OpenGL Qt6::OpenGLWidgets)
-
 add_plugin(meshtex
 	SOURCES
 		${PROJECT_SOURCE_DIR}/plugins/meshtex/GeneralFunctionDialog.cpp
@@ -97,6 +88,7 @@ add_plugin(meshtex
 )
 target_link_libraries(meshtex PRIVATE Qt6::Core Qt6::Gui Qt6::Widgets Qt6::Svg Qt6::OpenGL Qt6::OpenGLWidgets)
 
+# gtkgensurf is retained as a porting reference for the M3 surf ramp generator; not built yet
 if(0)
 add_plugin(gensurf
 	SOURCES

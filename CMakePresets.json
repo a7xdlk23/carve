@@ -25,9 +25,7 @@
 			"cacheVariables": {
 				"RADIANT_GENERATE_GAMEPACKS": true,
 				"RADIANT_USE_ASSIMP": false,
-				"RADIANT_SUPPORT_SOURCE": true,
-				"RADIANT_BUILD_MBSPC": false,
-				"RADIANT_BUILD_Q3MAP2": false
+				"RADIANT_SUPPORT_SOURCE": true
 			}
 		},
 		{

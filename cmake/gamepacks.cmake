@@ -3,13 +3,8 @@ function(radiant_add_gamepack name)
 	cmake_parse_arguments(PARSE_ARGV 1 ARG "HAS_BASEGAME;USE_NEW_OUTPUT_SEPARATOR;GOLDSRC" "ENTITIES;BASE_TITLE;BASE_GAMEDIR;TITLE;GAMEDIR;PATH_WIN32;PATH_LINUX;PATH_MACOS;EXECUTABLE_WIN32;EXECUTABLE_LINUX;EXECUTABLE_MACOS" "KNOWN_TITLES;KNOWN_GAMEDIRS")
 	file(MAKE_DIRECTORY "${PROJECT_SOURCE_DIR}/install/gamepacks/games/")
 	file(MAKE_DIRECTORY "${PROJECT_SOURCE_DIR}/install/gamepacks/${name}.game/")
-	if(ARG_GOLDSRC)
-		file(COPY "${PROJECT_SOURCE_DIR}/cmake/default_build_menu_goldsrc_ericwtools.xml" DESTINATION "${PROJECT_SOURCE_DIR}/install/gamepacks/${name}.game/")
-		file(RENAME "${PROJECT_SOURCE_DIR}/install/gamepacks/${name}.game/default_build_menu_goldsrc_ericwtools.xml" "${PROJECT_SOURCE_DIR}/install/gamepacks/${name}.game/default_build_menu.xml")
-	else()
-		file(COPY "${PROJECT_SOURCE_DIR}/cmake/default_build_menu_source.xml" DESTINATION "${PROJECT_SOURCE_DIR}/install/gamepacks/${name}.game/")
-		file(RENAME "${PROJECT_SOURCE_DIR}/install/gamepacks/${name}.game/default_build_menu_source.xml" "${PROJECT_SOURCE_DIR}/install/gamepacks/${name}.game/default_build_menu.xml")
-	endif()
+	file(COPY "${PROJECT_SOURCE_DIR}/cmake/default_build_menu_source.xml" DESTINATION "${PROJECT_SOURCE_DIR}/install/gamepacks/${name}.game/")
+	file(RENAME "${PROJECT_SOURCE_DIR}/install/gamepacks/${name}.game/default_build_menu_source.xml" "${PROJECT_SOURCE_DIR}/install/gamepacks/${name}.game/default_build_menu.xml")
 	set(target gamepack_${name})
 	add_custom_target(${target})
 	if(ARG_HAS_BASEGAME)
@@ -98,8 +93,7 @@ endfunction()
 # source engine gamepacks
 include(gamepacks/source)
 
-# goldsrc engine gamepacks
-include(gamepacks/goldsrc)
+# (GoldSrc gamepacks removed for the CS:S-only build)
 
 # put your custom gamepacks in here:
 # cmake/gamepacks/user.cmake

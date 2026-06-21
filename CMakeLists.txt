@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.21)
-project(WifeRadiant LANGUAGES C CXX VERSION 1.6.0)
+project(Carve LANGUAGES C CXX VERSION 1.6.0)
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
 # global
@@ -19,12 +19,6 @@ include(CMakeDependentOption)
 option(RADIANT_GENERATE_GAMEPACKS "Generate gamepacks" ON)
 option(RADIANT_USE_ASSIMP "Build Assimp model loader plugin" ON)
 option(RADIANT_SUPPORT_SOURCE "Support Source Engine formats" ON)
-option(RADIANT_SUPPORT_GOLDSRC "Generate GoldSrc engine gamepacks" ON)
-option(RADIANT_BUILD_MBSPC "Build mbspc" ON)
-cmake_dependent_option(RADIANT_BUILD_Q3MAP2 "Build q3map2" ON RADIANT_USE_ASSIMP OFF)
-option(RADIANT_BUILD_Q2MAP "Build q2map" ON)
-option(RADIANT_BUILD_H2DATA "Build h2data" ON)
-option(RADIANT_BUILD_QDATA3 "Build qdata3" ON)
 
 set(RADIANT_VERSION ${PROJECT_VERSION})
 set(RADIANT_MAJOR_VERSION ${PROJECT_VERSION_MAJOR})
@@ -61,8 +55,6 @@ if(RADIANT_SUPPORT_SOURCE)
 	FetchContent_MakeAvailable(sourcepp)
 endif()
 
-find_package(ZLIB REQUIRED)
-
 find_package(LibXml2)
 if(NOT LibXml2_FOUND)
 	FetchContent_Declare(
@@ -72,6 +64,8 @@ if(NOT LibXml2_FOUND)
 		EXCLUDE_FROM_ALL
 	)
 	set(LIBXML2_WITH_ICONV OFF CACHE BOOL "" FORCE)
+	set(LIBXML2_WITH_ZLIB OFF CACHE BOOL "" FORCE)
+	set(LIBXML2_WITH_LZMA OFF CACHE BOOL "" FORCE)
 	FetchContent_MakeAvailable(libxml2)
 endif()
 
@@ -83,6 +77,7 @@ if(RADIANT_USE_ASSIMP)
 		EXCLUDE_FROM_ALL
 	)
 	set(ASSIMP_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+	set(ASSIMP_BUILD_ZLIB OFF CACHE BOOL "" FORCE)
 	set(ASSIMP_INJECT_DEBUG_POSTFIX OFF CACHE BOOL "" FORCE)
 	set(ASSIMP_INSTALL OFF CACHE BOOL "" FORCE)
 	set(ASSIMP_WARNINGS_AS_ERRORS OFF CACHE BOOL "" FORCE)
@@ -396,6 +391,7 @@ target_compile_definitions(xmllib PRIVATE $<$<CONFIG:Debug>:_DEBUG> $<$<NOT:$<BO
 
 set_target_properties(radiant
 	PROPERTIES
+		OUTPUT_NAME carve
 		LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/install
 		RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/install
 )
@@ -428,35 +424,8 @@ if(RADIANT_GENERATE_GAMEPACKS)
 	include(gamepacks)
 endif()
 
-# q3map2
-
-if(RADIANT_BUILD_Q3MAP2)
-	include(q3map2)
-endif()
-
-# mbspc
-
-if(RADIANT_BUILD_MBSPC)
-	include(mbspc)
-endif()
-
-# q2map
-
-if(RADIANT_BUILD_Q2MAP)
-	include(q2map)
-endif()
-
-# h2data
-
-if(RADIANT_BUILD_H2DATA)
-	include(h2data)
-endif()
-
-# qdata3
-
-if(RADIANT_BUILD_QDATA3)
-	include(qdata3)
-endif()
+# idTech compile tools (q3map2/mbspc/q2map/qdata3/h2data) were removed for the CS:S-only build.
+# CS:S maps are compiled with the Source SDK tools (vbsp/vvis/vrad) via the build menu.
 
 # modules
 

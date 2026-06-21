@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"cd C:/Users/a/Documents/Carve && echo \\\"=== errors? ===\\\" && grep -ciE \\\"error:|ninja: build stopped\\\" build_compile.log && echo \\\"=== exe ===\\\" && ls -la install/carve.exe install/radiant...",
+  "error": "Exit code 1\n=== errors? ===\n0",
+  "timestamp": "2026-06-21T10:23:00.291Z",
+  "retry_count": 1
+}

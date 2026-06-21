@@ -45,13 +45,6 @@ function(add_module name)
 	)
 endfunction()
 
-add_module(archivepak
-	SOURCES
-		${PROJECT_SOURCE_DIR}/modules/archivepak/archive.cpp
-		${PROJECT_SOURCE_DIR}/modules/archivepak/pak.cpp
-		${PROJECT_SOURCE_DIR}/modules/archivepak/plugin.cpp
-)
-
 if(RADIANT_SUPPORT_SOURCE)
 	add_module(archivevpk
 		SOURCES
@@ -60,22 +53,6 @@ if(RADIANT_SUPPORT_SOURCE)
 	)
 	target_link_libraries(archivevpk PRIVATE sourcepp::vpkpp)
 endif()
-
-add_module(archivezip
-	SOURCES
-		${PROJECT_SOURCE_DIR}/modules/archivezip/archive.cpp
-		${PROJECT_SOURCE_DIR}/modules/archivezip/pkzip.cpp
-		${PROJECT_SOURCE_DIR}/modules/archivezip/plugin.cpp
-		${PROJECT_SOURCE_DIR}/modules/archivezip/zlibstream.cpp
-)
-target_link_libraries(archivezip PRIVATE ZLIB::ZLIB)
-
-add_module(archivewad
-	SOURCES
-		${PROJECT_SOURCE_DIR}/modules/archivewad/archive.cpp
-		${PROJECT_SOURCE_DIR}/modules/archivewad/plugin.cpp
-		${PROJECT_SOURCE_DIR}/modules/archivewad/wad.cpp
-)
 
 add_module(entity
 	SOURCES
@@ -125,27 +102,6 @@ if(RADIANT_SUPPORT_SOURCE)
 	target_link_libraries(imagevtf PRIVATE sourcepp::vtfpp)
 endif()
 
-add_module(imagepvr
-	SOURCES
-		${PROJECT_SOURCE_DIR}/modules/imagepvr/imagepvr.cpp
-		${PROJECT_SOURCE_DIR}/modules/imagepvr/pvr.cpp
-)
-
-add_module(imagehl
-	SOURCES
-		${PROJECT_SOURCE_DIR}/modules/imagehl/hlw.cpp
-		${PROJECT_SOURCE_DIR}/modules/imagehl/imagehl.cpp
-		${PROJECT_SOURCE_DIR}/modules/imagehl/mip.cpp
-		${PROJECT_SOURCE_DIR}/modules/imagehl/sprite.cpp
-)
-
-add_module(imageq2
-	SOURCES
-		${PROJECT_SOURCE_DIR}/modules/imageq2/imageq2.cpp
-		${PROJECT_SOURCE_DIR}/modules/imageq2/wal.cpp
-		${PROJECT_SOURCE_DIR}/modules/imageq2/wal32.cpp
-)
-
 if(RADIANT_USE_ASSIMP)
 	add_module(assmodel
 		SOURCES
@@ -179,13 +135,6 @@ else()
 	target_compile_definitions(model PRIVATE NO_SOURCEMDL=1)
 endif()
 
-add_module(mapq3
-	SOURCES
-		${PROJECT_SOURCE_DIR}/modules/mapq3/parse.cpp
-		${PROJECT_SOURCE_DIR}/modules/mapq3/plugin.cpp
-		${PROJECT_SOURCE_DIR}/modules/mapq3/write.cpp
-)
-
 if(RADIANT_SUPPORT_SOURCE)
 	add_module(mapvmf
 		SOURCES
@@ -193,14 +142,6 @@ if(RADIANT_SUPPORT_SOURCE)
 	)
 	target_link_libraries(mapvmf PRIVATE sourcepp::kvpp)
 endif()
-
-add_module(mapxml
-	SOURCES
-		${PROJECT_SOURCE_DIR}/modules/mapxml/plugin.cpp
-		${PROJECT_SOURCE_DIR}/modules/mapxml/xmlparse.cpp
-		${PROJECT_SOURCE_DIR}/modules/mapxml/xmlwrite.cpp
-)
-target_link_libraries(mapxml PRIVATE LibXml2::LibXml2)
 
 add_module(shaders
 	SOURCES

@@ -1056,6 +1056,12 @@ void create_view_menu( QMenuBar *menubar, MainFrame::EViewStyle style ){
 	//command_connect_accelerator( "CenterXYView" );
 }
 
+// File-scope helper so it has linkage when used as a non-type template argument
+// below (a function-local lambda has no linkage, which GCC rejects).
+static void SelectionMenu_setActionText( QAction *action, const char *text ){
+	action->setText( text );
+}
+
 void create_selection_menu( QMenuBar *menubar ){
 	// Selection menu
 	QMenu *menu = menubar->addMenu( "M&odify" );
@@ -1124,7 +1130,7 @@ void create_selection_menu( QMenuBar *menubar ){
 
 		create_menu_item_with_mnemonic( submenu, "Repeat Transforms", "RepeatTransforms" );
 
-		using SetTextCB = PointerCaller<QAction, void(const char*), +[]( QAction *action, const char *text ){ action->setText( text ); }>;
+		using SetTextCB = PointerCaller<QAction, void(const char*), SelectionMenu_setActionText>;
 		const auto addItem = [submenu]<SelectionSystem::EManipulatorMode mode>() -> SetTextCB {
 			return SetTextCB( create_menu_item_with_mnemonic( submenu, "", makeCallbackF( +[](){ GlobalSelectionSystem().resetTransforms( mode ); } ) ) );
 		};

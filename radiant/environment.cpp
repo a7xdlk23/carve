@@ -260,7 +260,7 @@ void environment_init( int argc, char* argv[] ){
 	}
 
 	if ( !portable_app_setup() ) {
-		home_path = StringStream( DirectoryCleaned( qPrintable( QDir::homePath() ) ), ".wiferadiant/" );
+		home_path = StringStream( DirectoryCleaned( qPrintable( QDir::homePath() ) ), ".carve/" );
 		Q_mkdir( home_path.c_str() );
 	}
 	gamedetect();
@@ -288,14 +288,14 @@ void environment_init( int argc, char* argv[] ){
 		StringOutputStream home( 256 );
 		if ( !appdata || string_empty( appdata ) ) {
 			ERROR_MESSAGE( "Application Data folder not available.\n"
-			               "Radiant will use C:\\ for user preferences.\n" );
+			               "Carve will use C:\\ for user preferences.\n" );
 			home << "C:";
 		}
 		else
 		{
 			home << PathCleaned( appdata );
 		}
-		home << "/WifeRadiantSettings/";
+		home << "/CarveSettings/";
 		Q_mkdir( home );
 		home_path = home;
 	}

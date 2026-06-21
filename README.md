@@ -1,8 +1,8 @@
-![WifeRadiant](.github/splash.png)
+![Carve](.github/splash.png)
 
 The open-source, cross-platform level editor for idTech, Source Engine, and GoldSrc based games.
 
-WifeRadiant is a fork of NetRadiant-custom ([GtkRadiant](https://icculus.org/gtkradiant/) 1.4&rarr;massive rewrite&rarr;1.5&rarr;[NetRadiant](https://netradiant.gitlab.io/)&rarr;[NetRadiant-custom](https://github.com/Garux/netradiant-custom)&rarr;this)
+Carve is a fork of NetRadiant-custom ([GtkRadiant](https://icculus.org/gtkradiant/) 1.4&rarr;massive rewrite&rarr;1.5&rarr;[NetRadiant](https://netradiant.gitlab.io/)&rarr;[NetRadiant-custom](https://github.com/Garux/netradiant-custom)&rarr;this)
 
 ## THIS PROJECT IS STILL IN AN EARLY ALPHA STATE!<br/>DO NOT OVERWRITE HAMMER-MADE VMFS WITH THIS!<br/>MAKE BACKUPS!
 
@@ -11,9 +11,9 @@ WifeRadiant is a fork of NetRadiant-custom ([GtkRadiant](https://icculus.org/gtk
 ## FAQ
 
 - Q: How do I load an FGD in the editor?
-	- A: FGDs must be placed inside the WifeRadiant gamepack directory, like so: `WifeRadiant/gamepacks/hl2.game/hl2/halflife2.fgd`
+	- A: FGDs must be placed inside the Carve gamepack directory, like so: `Carve/gamepacks/hl2.game/hl2/halflife2.fgd`
 - Q: How do I load WADs for GoldSrc/Quake games?
-	- A: Unfortunately there is currently no way to manage WADs, WifeRadiant will automatically load any WADs it finds in the game directory, i.e. `Half-Life/valve/halflife.wad`
+	- A: Unfortunately there is currently no way to manage WADs, Carve will automatically load any WADs it finds in the game directory, i.e. `Half-Life/valve/halflife.wad`
 
 ## Credits
 

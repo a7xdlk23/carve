@@ -585,7 +585,7 @@ public:
 void PrefsDlg::BuildDialog(){
 	PreferencesDialog_addInterfacePreferences( makeCallbackF( Interface_constructPreferences ) );
 
-	GetWidget()->setWindowTitle( "WifeRadiant Preferences" );
+	GetWidget()->setWindowTitle( "Carve Preferences" );
 
 	{
 		auto *grid = new QGridLayout( GetWidget() );

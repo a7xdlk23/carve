@@ -64,10 +64,10 @@ void Sys_LogFile( bool enable ){
 			time_t localtime;
 			time( &localtime );
 			globalOutputStream() << "Today is: " << ctime( &localtime )
-			                     << "This is WifeRadiant '" RADIANT_VERSION "' compiled " __DATE__ "\n" RADIANT_ABOUTMSG "\n";
+			                     << "This is Carve '" RADIANT_VERSION "' compiled " __DATE__ "\n" RADIANT_ABOUTMSG "\n";
 		}
 		else{
-			qt_MessageBox( 0, "Failed to create log file, check write permissions in Radiant directory.\n",
+			qt_MessageBox( 0, "Failed to create log file, check write permissions in Carve directory.\n",
 			                "Console logging", EMessageBoxType::Error );
 		}
 	}
